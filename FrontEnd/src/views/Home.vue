@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    {{testData}}
     <HelloWorld msg="Welcome To Our Senior Project Website!"/>
   </div>
 </template>
@@ -12,6 +13,11 @@ export default {
   name: 'Home',
   components: {
     HelloWorld
+  },
+  computed: {
+    testData() {
+      return this.$store.getters['login_module/getFirstName']
+    }
   }
 }
 </script>
