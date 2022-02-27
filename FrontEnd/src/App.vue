@@ -1,37 +1,56 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home  | </router-link>
-      <router-link to="/login" v-if="!isLoggedIn">Login  | </router-link>
-      <router-link to="/job-opportunities" v-if="userType=='jobSeeker'">Job Opportunities | </router-link>
-      <router-link to="/create-jobs" v-if="userType=='recruiter'">Create Jobs  |</router-link>
-      <router-link to="/check-job-applicants" v-if="userType=='recruiter'">Check Job Applicants  |</router-link>
-      <button v-if="isLoggedIn" @click="logoutCurrentUser"> Log Out</button>
-    </div>
-    <router-view />
+  <div id="app">   
+    <nav class="bg-dark navbar navbar-expand-lg navbar-expand-md" style="height: 4.5rem;">
+      <div class="container">
+        <a class="navbar-brand" href="/"> <i class="fa fa-line-chart"></i> E-Recruitment </a>
+        <p v-if="firstName">Welcome {{firstName}} </p>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <router-link to="/" class="nav-link text-white">Home </router-link>
+                </li>
+                <li class="nav-item" v-if="!isLoggedIn">
+                  <router-link to="/login" class="nav-link smoothScroll text-white">Login </router-link>
+                </li>
+                <li class="nav-item" v-if="userType=='jobSeeker'">
+                  <router-link to="/job-opportunities" class="nav-link text-white">Job Opportunities </router-link>
+                </li>
+                <li class="nav-item" v-if="userType=='recruiter'">
+                  <router-link to="/create-jobs" class="nav-link text-white">Create Jobs  |</router-link>
+                </li>
+                <li class="nav-item" v-if="userType=='recruiter'">
+                  <router-link to="/check-job-applicants" class="nav-link text-white">Check Job Applicants  |</router-link>
+                </li>
+                <li class="nav-item" v-if="isLoggedIn">
+                  <button @click="logoutCurrentUser" class="nav-link contact text-black"> Log Out</button>
+                </li>
+            </ul>
+        </div>
+      </div>
+    </nav>
+  <router-view class="mb-5" />
+  <footer class="py-5 bg-black mt-5">
+      <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; AUST Senior Project 2021-2022</p></div>
+  </footer>
   </div>
 </template>
 
 <style>
+@import '../src/assets/css/bootstrap.min.css';
+@import '../src/assets/css/font-awesome.min.css';
+@import '../src/assets/css/aos.css';
+@import '../src/assets/css/owl.carousel.min.css';
+@import '../src/assets/css/owl.theme.default.min.css';
+@import '../src/assets/css/templatemo-digital-trend.css';
+@import '../src/assets/css/styles.css';
+@import "https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900";
+@import "https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
 
@@ -49,6 +68,9 @@ export default {
     },
     isLoggedIn() {
       return this.$store.getters['login_module/getloggedInStatus']
+    },
+    firstName() {
+      return this.$store.getters['login_module/getFirstName']
     }
   }
 }

@@ -90,7 +90,7 @@
               <input type="password" id="confirm-password" v-model="confirmPassword" class="text-center form-control">
           </div>
       </div>
-      <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
+      <button type="submit" class="btn btn-secondary mb-4">Register</button>
     </form>
   </div>
 </template>

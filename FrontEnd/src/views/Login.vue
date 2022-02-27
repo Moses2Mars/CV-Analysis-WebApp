@@ -1,8 +1,8 @@
 <template>
-  <div class="container" id="container">
+  <div class="container mt-5" id="container">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
     <div class="form-container sign-in-container">
-      <form role="form" @submit.prevent="registerUser">
+      <form role="form" @submit.prevent="loginUser">
         <h1>Sign in</h1>
         <div class="social-container">
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a><br> 
@@ -18,8 +18,8 @@
     <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-right">
-          <h1>New Here?</h1>
-          <p>Click The Button To Register For Free!</p>
+          <h1 class="text-white">New Here?</h1>
+          <p class="text-white">Click The Button To Register For Free!</p>
           <button class="ghost" id="signUp" @click="$router.push('/register')">Sign Up</button>
         </div>
       </div>

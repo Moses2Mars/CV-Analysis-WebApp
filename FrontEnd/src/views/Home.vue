@@ -5,19 +5,18 @@
     get laravel response from the button: (check console)
     <button @click="sendLaravelRequest"> click me!</button>
   </div> -->
-    {{testData}}
-    <HelloWorld msg="Welcome To Our Senior Project Website!"/>
+    <HeroSection/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import HeroSection from '@/components/HeroSection.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    HeroSection
   },
   methods:{
     sendLaravelRequest () {
@@ -28,10 +27,5 @@ export default {
       })
     }
   },
-  computed: {
-    testData() {
-      return this.$store.getters['login_module/getFirstName']
-    }
-  }
 }
 </script>
