@@ -1,6 +1,6 @@
 <template>
-  <div class="container w-1/2 m-auto items-center register-background">
-    <form class="form-horizontal" role="form" @submit.prevent='registerUser'>
+  <div class="container register-background">
+    <form class="form-horizontal" role="form" @submit.prevent="registerUser">
       <br>
       <h1>Registration</h1>
       <div class="form-group m-3">
@@ -41,13 +41,13 @@
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label for="birthDate" class="col-sm-3 control-label" style="font-size: 1.6rem;">Date of Birth</label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="date" id="birthDate" v-model='dob' class="text-center form-control">
+              <input type="date" id="birthDate" v-model='dob' min="1970-01-01" max="2012-12-31" class="text-center form-control">
           </div>
       </div>
       <div class="form-group m-3">
-        <label for='address' class="col-sm-3 control-label" style="font-size: 1.6rem;">Country: </label>
+        <label for='country' class="col-sm-3 control-label" style="font-size: 1.6rem;">Country: </label>
           <div class="col-sm-9 col-md-4 m-auto">
-            <select class="form-control" name='purpose' id='purpose' @change='setCountry($event)' required>
+            <select class="form-control" name='country' id='country' @change='setCountry($event)' required>
               <option disabled selected value class="text-center"> -- select an option -- </option>
               <option value='jobSeeker' class="text-center">List of Countries Will Be Here</option>
             </select>
@@ -85,9 +85,9 @@
         </div>
       </div>
       <div class="form-group m-3">
-          <label for="password" class="col-sm-3 control-label" style="font-size: 1.6rem;">Confirm Password</label>
+          <label for="confirm-password" class="col-sm-3 control-label" style="font-size: 1.6rem;">Confirm Password</label>
           <div class="col-sm-9 col-md-4 m-auto mb-2">
-              <input type="password" id="password" v-model="confirmPassword" class="text-center form-control">
+              <input type="password" id="confirm-password" v-model="confirmPassword" class="text-center form-control">
           </div>
       </div>
       <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
@@ -97,7 +97,7 @@
 
 <style scoped>
 .register-background {
-  background-color: rgb(153, 153, 153);
+  background-color: rgb(255, 110, 110);
   color: black;
   border-radius: 40px;
 }
@@ -107,7 +107,6 @@ export default {
   name: 'App',
   data() {
     return {
-      allowRegistration: false,
       warningMsg: '',
       firstName: '',
       lastName: '',
@@ -132,8 +131,10 @@ export default {
       this.country = e.target.value
     },
     registerUser(){
-      //allowRegistration checks if the email format is correct
-      if(!this.allowRegistration) return;
+      //checks if the email format is correct
+      if(!this.validateEmail()) return;
+
+      if(this.password != this.confirmPassword) return;
       
       //send these values to the backend and insert them to the database
       let request = {}
@@ -174,12 +175,12 @@ export default {
       this.$router.push('/Login')
     },
     validateEmail(){
-      if (this.email.split('') != '' && !this.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+      if (!this.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
           this.warningMsg = 'Please enter a valid email address';
-          this.allowRegistration = false
+          return false
       }else{
         this.warningMsg = '';
-        this.allowRegistration = true;
+        return true;
       }
     },
     resetForm(){
