@@ -3,7 +3,7 @@
     <nav class="bg-dark navbar navbar-expand-lg navbar-expand-md" style="height: 4.5rem;">
       <div class="container">
         <a class="navbar-brand" href="/"> <i class="fa fa-line-chart"></i> E-Recruitment </a>
-        <p v-if="firstName">Welcome {{firstName}} </p>
+        <p v-if="firstName" class="m-auto pl-4">Welcome {{firstName}} </p>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -16,13 +16,13 @@
                   <router-link to="/job-opportunities" class="nav-link text-white">Job Opportunities </router-link>
                 </li>
                 <li class="nav-item" v-if="userType=='recruiter'">
-                  <router-link to="/create-jobs" class="nav-link text-white">Create Jobs  |</router-link>
+                  <router-link to="/create-jobs" class="nav-link text-white">Create Jobs </router-link>
                 </li>
                 <li class="nav-item" v-if="userType=='recruiter'">
-                  <router-link to="/check-job-applicants" class="nav-link text-white">Check Job Applicants  |</router-link>
+                  <router-link to="/check-job-applicants" class="nav-link text-white">Check Job Applicants </router-link>
                 </li>
                 <li class="nav-item" v-if="isLoggedIn">
-                  <button @click="logoutCurrentUser" class="nav-link contact text-black"> Log Out</button>
+                  <button @click="logoutCurrentUser" class="nav-link contact text-black my-auto"> Log Out</button>
                 </li>
             </ul>
         </div>
