@@ -1,12 +1,12 @@
 <template>
-  <div class="container register-background">
+  <div class="container register-background mt-5">
     <form class="form-horizontal" role="form" @submit.prevent="registerUser">
       <br>
       <h1>Registration</h1>
       <div class="form-group m-3">
-        <label for='address' class="col-sm-3 control-label" style="font-size: 1.6rem;">Purpose Of Using This Site: </label>
+        <label for='address' class="col-sm-3 control-label" style="font-size: 1.6rem;">User Purpose: </label>
           <div class="col-sm-9 col-md-4 m-auto">
-            <select class="form-control" name='purpose' id='purpose' @change='setPurpose($event)' required>
+            <select class="form-select" name='purpose' id='purpose' @change='setPurpose($event)' required>
               <option disabled selected value class="text-center"> -- select an option -- </option>
               <option value='jobSeeker' class="text-center">Looking For A Job</option>
               <option value='recruiter' class="text-center">Looking To Recruit Candidates</option>
@@ -26,7 +26,7 @@
           </div>
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'recruiter'">
-              <label for="companyName" class="col-sm-3 control-label" style="font-size: 1.6rem;">Company Name (optional) </label>
+              <label for="companyName" class="col-sm-3 control-label" style="font-size: 1.6rem;">Company Name</label>
           <div class="col-sm-9 col-md-4 m-auto">
               <input type="text" id="companyName" v-model="companyName" class="text-center form-control">
           </div>
@@ -44,19 +44,26 @@
               <input type="date" id="birthDate" v-model='dob' min="1970-01-01" max="2012-12-31" class="text-center form-control">
           </div>
       </div>
+      <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
+          <label for="phoneNumber" class="col-sm-3 control-label" style="font-size: 1.6rem;">Phone number (optional)</label>
+          <div class="col-sm-9 col-md-4 m-auto">
+              <input type="phoneNumber" id="phoneNumber" v-model='phoneNumber' class="text-center form-control">
+          </div>
+      </div>
       <div class="form-group m-3">
         <label for='country' class="col-sm-3 control-label" style="font-size: 1.6rem;">Country: </label>
           <div class="col-sm-9 col-md-4 m-auto">
-            <select class="form-control" name='country' id='country' @change='setCountry($event)' required>
+            <select class="form-select" name='country' id='country' @change='setCountry($event)' required>
               <option disabled selected value class="text-center"> -- select an option -- </option>
               <option value='jobSeeker' class="text-center">List of Countries Will Be Here</option>
             </select>
           </div>
       </div>
       <div class="form-group m-3">
-          <label for="phoneNumber" class="col-sm-3 control-label" style="font-size: 1.6rem;">Phone number (optional)</label>
+          <label for="Address" class="col-sm-3 control-label" v-if="this.purpose == 'recruiter'" style="font-size: 1.6rem;">Company Address</label>
+          <label for="Address" class="col-sm-3 control-label" style="font-size: 1.6rem;" v-else>Address</label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="phoneNumber" id="phoneNumber" v-model='phoneNumber' class="text-center form-control">
+              <input type="text" id="Address" v-model="address" class="text-center form-control">
           </div>
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
@@ -69,13 +76,6 @@
           <label for="Experience" class="col-sm-3 control-label" style="font-size: 1.6rem;"> Years Of Experience </label>
           <div class="col-sm-9 col-md-4 m-auto">
               <input type="number" id="Experience" v-model="yearsOfExperience" class="text-center form-control">
-          </div>
-      </div>
-      <div class="form-group m-3">
-          <label for="Address" class="col-sm-3 control-label" v-if="this.purpose == 'recruiter'" style="font-size: 1.6rem;">Company Address</label>
-          <label for="Address" class="col-sm-3 control-label" style="font-size: 1.6rem;" v-else>Address</label>
-          <div class="col-sm-9 col-md-4 m-auto">
-              <input type="text" id="Address" v-model="address" class="text-center form-control">
           </div>
       </div>
       <div class="form-group m-3">
@@ -160,8 +160,6 @@ export default {
         }
       else 
         request = {
-          firstName: this.firstName,
-          lastName: this.lastName,
           email: this.email,
           password: this.password,
           address: this.address,
@@ -172,6 +170,10 @@ export default {
         }
 
       console.log(request)
+
+      //if purpose is recruiter -> send info to companies table
+      //else if purpose is jobSeeker -> send info to users table
+
 
       //resets all the input values
       this.resetForm()
