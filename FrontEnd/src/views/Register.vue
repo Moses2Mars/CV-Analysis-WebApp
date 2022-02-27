@@ -134,7 +134,11 @@ export default {
       //checks if the email format is correct
       if(!this.validateEmail()) return;
 
-      if(this.password != this.confirmPassword) return;
+      if(this.password != this.confirmPassword) {
+        this.password = this.confirmPassword = ''
+        this.$vToastify.error("Passwords Dont Match!");
+        return;
+      }
       
       //send these values to the backend and insert them to the database
       let request = {}
