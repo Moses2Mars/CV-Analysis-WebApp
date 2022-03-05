@@ -41,7 +41,7 @@
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label for="birthDate" class="col-sm-3 control-label" style="font-size: 1.6rem;">Date of Birth</label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="date" id="birthDate" v-model='dob' min="1970-01-01" max="2012-12-31" class="text-center form-control" autocomplete="off" >
+              <input type="date" id="birthDate" v-model='birth_date' min="1970-01-01" max="2012-12-31" class="text-center form-control" autocomplete="off" >
           </div>
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
@@ -113,7 +113,7 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
-      dob: undefined,
+      birth_date: undefined,
       address: '',
       purpose: '',
       phoneNumber: null,
@@ -143,14 +143,14 @@ export default {
       //send these values to the backend and insert them to the database
       let request = {}
       
-      //if jobSeeker, no need for companyName, field and yearsofexperience, dob
+      //if jobSeeker, no need for companyName, field and yearsofexperience, birth_date
       if(this.purpose=='jobSeeker') 
         request = {
           firstName: this.firstName,
           lastName: this.lastName,
           email: this.email,
           password: this.password,
-          dob: this.dob,
+          birth_date: this.birth_date,
           address: this.address,
           purpose: this.purpose,
           phoneNumber: this.phoneNumber,
@@ -196,7 +196,7 @@ export default {
       this.email= ''
       this.password= ''
       this.confirmPassword= ''
-      this.dob= undefined
+      this.birth_date= undefined
       this.address= ''
       this.purpose= ''
       this.phoneNumber= null
