@@ -16,38 +16,38 @@
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label for="firstName" class="col-sm-3 control-label" style="font-size: 1.6rem;">First Name</label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="text" id="firstName" v-model='firstName' class="text-center form-control" autofocus>
+              <input type="text" id="firstName" v-model='firstName' class="text-center form-control" autofocus autocomplete="off" >
           </div>
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label class="col-sm-3 control-label" style="font-size: 1.6rem;">Last Name</label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="text" id="lastName" v-model='lastName' class="text-center form-control m-auto" autofocus>
+              <input type="text" id="lastName" v-model='lastName' class="text-center form-control m-auto" autofocus autocomplete="off" >
           </div>
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'recruiter'">
               <label for="companyName" class="col-sm-3 control-label" style="font-size: 1.6rem;">Company Name</label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="text" id="companyName" v-model="companyName" class="text-center form-control">
+              <input type="text" id="companyName" v-model="companyName" class="text-center form-control" autocomplete="off" >
           </div>
       </div>
       <div class="form-group m-3">
           <label for="email" class="col-sm-3 control-label" style="font-size: 1.6rem;">Email</label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="email" id="email" v-model='email' class="text-center form-control" name= "email">
+              <input type="email" id="email" v-model='email' class="text-center form-control" name= "email" autocomplete="off" >
           </div>
           {{warningMsg}}
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label for="birthDate" class="col-sm-3 control-label" style="font-size: 1.6rem;">Date of Birth</label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="date" id="birthDate" v-model='dob' min="1970-01-01" max="2012-12-31" class="text-center form-control">
+              <input type="date" id="birthDate" v-model='dob' min="1970-01-01" max="2012-12-31" class="text-center form-control" autocomplete="off" >
           </div>
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label for="phoneNumber" class="col-sm-3 control-label" style="font-size: 1.6rem;">Phone number (optional)</label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="phoneNumber" id="phoneNumber" v-model='phoneNumber' class="text-center form-control">
+              <input type="phoneNumber" id="phoneNumber" v-model='phoneNumber' class="text-center form-control" autocomplete="off" >
           </div>
       </div>
       <div class="form-group m-3">
@@ -63,31 +63,31 @@
           <label for="Address" class="col-sm-3 control-label" v-if="this.purpose == 'recruiter'" style="font-size: 1.6rem;">Company Address</label>
           <label for="Address" class="col-sm-3 control-label" style="font-size: 1.6rem;" v-else>Address</label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="text" id="Address" v-model="address" class="text-center form-control">
+              <input type="text" id="Address" v-model="address" class="text-center form-control" autocomplete="off" >
           </div>
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label for="Field" class="col-sm-3 control-label" style="font-size: 1.6rem;">Field </label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="text" id="Field" placeholder="Please Fill In Your Main Job Field" v-model="jobField" class="text-center form-control">
+              <input type="text" id="Field" placeholder="Please Fill In Your Main Job Field" v-model="jobField" class="text-center form-control" autocomplete="off" >
           </div>
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label for="Experience" class="col-sm-3 control-label" style="font-size: 1.6rem;"> Years Of Experience </label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="number" id="Experience" v-model="yearsOfExperience" class="text-center form-control">
+              <input type="number" id="Experience" v-model="yearsOfExperience" class="text-center form-control" autocomplete="off" >
           </div>
       </div>
       <div class="form-group m-3">
         <label for="password" class="col-sm-3 control-label" style="font-size: 1.6rem;">Password</label>
         <div class="col-sm-9 col-md-4 m-auto">
-            <input type="password" id="password" v-model="password" class="text-center form-control">
+            <input type="password" id="password" v-model="password" class="text-center form-control" autocomplete="off" >
         </div>
       </div>
       <div class="form-group m-3">
           <label for="confirm-password" class="col-sm-3 control-label" style="font-size: 1.6rem;">Confirm Password</label>
           <div class="col-sm-9 col-md-4 m-auto mb-2">
-              <input type="password" id="confirm-password" v-model="confirmPassword" class="text-center form-control">
+              <input type="password" id="confirm-password" v-model="confirmPassword" class="text-center form-control" autocomplete="off" >
           </div>
       </div>
       <button type="submit" class="btn btn-secondary mb-4">Register</button>
@@ -173,7 +173,6 @@ export default {
 
       //if purpose is recruiter -> send info to companies table
       //else if purpose is jobSeeker -> send info to users table
-
 
       //resets all the input values
       this.resetForm()

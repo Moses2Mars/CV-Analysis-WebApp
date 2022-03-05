@@ -19,7 +19,7 @@
                   <router-link to="/create-jobs" class="nav-link text-white">Create Jobs </router-link>
                 </li>
                 <li class="nav-item" v-if="userType=='recruiter'">
-                  <router-link to="/check-job-applicants" class="nav-link text-white">Check Job Applicants </router-link>
+                  <router-link to="/check-job-listing" class="nav-link text-white">Check Job Applicants </router-link>
                 </li>
                 <li class="nav-item" v-if="isLoggedIn">
                   <button @click="logoutCurrentUser" class="nav-link contact text-black my-auto"> Log Out</button>
