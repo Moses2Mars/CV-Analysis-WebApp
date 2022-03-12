@@ -5,6 +5,7 @@ import Axios from 'axios'
 import 'bootstrap' 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VueToastify from "vue-toastify";
+import { store } from './store/index'
 
 Axios.defaults.baseURL = (process.env.API_PATH !== 'production') ? 'http://localhost:8000/api/' : '';
 
@@ -15,5 +16,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  store: store,
   render: h => h(App)
 }).$mount('#app')
