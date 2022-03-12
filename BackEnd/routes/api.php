@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CountriesApiController;
+use App\Http\Controllers\JobFieldsApiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TestController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,4 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/getLaravelTestController', [TestController::class, 'testFunction']);
+Route::get('/all-countries', [CountriesApiController::class, 'getAllCountries']);
+Route::get('/all-job-fields', [JobFieldsApiController::class, 'getAllJobFields']);
+Route::post('/create-user', [UserController::class, 'createUser']);

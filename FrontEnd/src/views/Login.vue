@@ -41,7 +41,7 @@ export default {
     loginUser() {
       //send information to backend and get response,
       //jobSeeker --- recruiter
-      this.$store.dispatch('login_module/authenticate', {email: this.user.email, password: this.user.password, purpose: 'recruiter'}, {root:true})
+      this.$store.dispatch('login_module/authenticate', {email: this.user.email, password: this.user.password, purpose: 'jobSeeker'}, {root:true})
       //if response code is 200, it means user credentials match with the backend
       //take them to the home page
       this.$router.push('/')
