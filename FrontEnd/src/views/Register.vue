@@ -1,5 +1,5 @@
 <template>
-  <div class="container register-background mt-5">
+  <div class="container register-background mt-5 pb-5">
     <form class="form-horizontal" role="form" @submit.prevent="registerUser">
       <br>
       <h1>Registration</h1>
@@ -13,6 +13,7 @@
             </select>
           </div>
       </div>
+      <div v-if="this.purpose">
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label for="firstName" class="col-sm-3 control-label" style="font-size: 1.6rem;">First Name</label>
           <div class="col-sm-9 col-md-4 m-auto">
@@ -41,7 +42,18 @@
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label for="birthDate" class="col-sm-3 control-label" style="font-size: 1.6rem;">Date of Birth</label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="date" id="birthDate" v-model='birth_date' min="1970-01-01" max="2012-12-31" class="text-center form-control" autocomplete="off" >
+              <input type="date" id="birthDate" v-model='birthDate' min="1970-01-01" max="2012-12-31" class="text-center form-control" autocomplete="off" >
+          </div>
+      </div>
+      <div class="form-group m-3">
+        <label for='country' class="col-sm-3 control-label" style="font-size: 1.6rem;">Country: </label>
+          <div class="col-sm-9 col-md-4 m-auto">
+            <select class="form-select" name='country' id='country' @change='setCountry($event)' required>
+              <option disabled selected value class="text-center"> -- select an option -- </option>
+              <option v-for="country in all_countries" :key="country.id" :value="country.country" class="text-center">
+                {{country.country}}
+              </option>
+            </select>
           </div>
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
@@ -51,31 +63,30 @@
           </div>
       </div>
       <div class="form-group m-3">
-        <label for='country' class="col-sm-3 control-label" style="font-size: 1.6rem;">Country: </label>
-          <div class="col-sm-9 col-md-4 m-auto">
-            <select class="form-select" name='country' id='country' @change='setCountry($event)' required>
-              <option disabled selected value class="text-center"> -- select an option -- </option>
-              <option value='jobSeeker' class="text-center">List of Countries Will Be Here</option>
-            </select>
-          </div>
-      </div>
-      <div class="form-group m-3">
-          <label for="Address" class="col-sm-3 control-label" v-if="this.purpose == 'recruiter'" style="font-size: 1.6rem;">Company Address</label>
-          <label for="Address" class="col-sm-3 control-label" style="font-size: 1.6rem;" v-else>Address</label>
+          <label for="Address" class="col-sm-3 control-label" style="font-size: 1.6rem;"><span v-if="this.purpose == 'recruiter'">Company</span> Address</label>
           <div class="col-sm-9 col-md-4 m-auto">
               <input type="text" id="Address" v-model="address" class="text-center form-control" autocomplete="off" >
           </div>
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
-          <label for="Field" class="col-sm-3 control-label" style="font-size: 1.6rem;">Field </label>
+          <label for="field" class="col-sm-3 control-label" style="font-size: 1.6rem;">Field </label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="text" id="Field" placeholder="Please Fill In Your Main Job Field" v-model="jobField" class="text-center form-control" autocomplete="off" >
+            <select class="form-select" name='field' id='field' @change='setJobField($event)' required>
+              <option disabled selected value class="text-center"> -- select an option -- </option>
+              <option v-for="job_field in all_job_fields" :key="job_field.id" :value='job_field.field' class="text-center">
+                {{job_field.field}}
+              </option>
+            </select>
           </div>
+          <!--      
+          if we wanted to put an "other" option for job fields, we can use this     
+          <input type="text" id="Field" placeholder="Please Fill In Your Main Job Field" v-model="jobField" class="text-center form-control" autocomplete="off" >
+           -->
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label for="Experience" class="col-sm-3 control-label" style="font-size: 1.6rem;"> Years Of Experience </label>
           <div class="col-sm-9 col-md-4 m-auto">
-              <input type="number" id="Experience" v-model="yearsOfExperience" class="text-center form-control" autocomplete="off" >
+              <input type="number" id="Experience" step="0.5" v-model="yearsOfExperience" min="0" max="20" class="text-center form-control" autocomplete="off" >
           </div>
       </div>
       <div class="form-group m-3">
@@ -91,6 +102,7 @@
           </div>
       </div>
       <button type="submit" class="btn btn-secondary mb-4">Register</button>
+      </div>
     </form>
   </div>
 </template>
@@ -113,7 +125,7 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
-      birth_date: undefined,
+      birthDate: undefined,
       address: '',
       purpose: '',
       phoneNumber: null,
@@ -121,7 +133,9 @@ export default {
       companyName: '',
       country: '',
       yearsOfExperience: null,
-    };
+      all_countries: [],
+      all_job_fields: [],
+    }
   },
   methods: {
     setPurpose(e){
@@ -130,27 +144,65 @@ export default {
     setCountry(e){
       this.country = e.target.value
     },
+    setJobField(e) {
+      this.jobField = e.target.value
+    },
+    setAllCountries(){
+      this.all_countries = this.$store.getters['getAllCountries']
+    },
+    setAllJobFields(){
+      this.all_job_fields = this.$store.getters['getAllJobFields']
+    },
     registerUser(){
-      //checks if the email format is correct
+      //checks if the email format is correct and if passwords match
       if(!this.validateEmail()) return;
+      if(!this.validatePassword()) return;
 
-      if(this.password != this.confirmPassword) {
-        this.password = this.confirmPassword = ''
-        this.$vToastify.error("Passwords Dont Match!");
-        return;
+      //set the values to be sent to the backend
+      let request = this.setRequest()
+      
+      console.log('request', request)
+
+      //if purpose is recruiter -> send info to companies table
+      this.$http.post('/create-user', request)
+        .then( ()=> {
+          this.$vToastify.success("Registration Successfull!");
+          //after finishing everything, push the user back to the login page.
+          this.$router.push('/Login')
+        }).catch((error)=>{
+          this.$vToastify.error("Oops... Something Went Wrong!");
+          console.error(error)
+        })
+      //else if purpose is jobSeeker -> send info to users table
+
+      
+    },
+    validateEmail(){
+      if (!this.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+          this.warningMsg = 'Please enter a valid email address';
+          return false
       }
-      
-      //send these values to the backend and insert them to the database
-      let request = {}
-      
-      //if jobSeeker, no need for companyName, field and yearsofexperience, birth_date
+
+      this.warningMsg = '';
+      return true;
+    },
+    validatePassword(){
+      if(this.password == this.confirmPassword)
+        return true
+    
+      this.password = this.confirmPassword = ''
+      this.$vToastify.error("Passwords Dont Match!");
+      return false;  
+    },
+    setRequest(){
+      //if jobSeeker, no need for companyName, field and yearsofexperience, birthDate
       if(this.purpose=='jobSeeker') 
-        request = {
+        return {
           firstName: this.firstName,
           lastName: this.lastName,
           email: this.email,
           password: this.password,
-          birth_date: this.birth_date,
+          birthDate: this.birthDate,
           address: this.address,
           purpose: this.purpose,
           phoneNumber: this.phoneNumber,
@@ -158,8 +210,8 @@ export default {
           country: this.country,
           yearsOfExperience: this.yearsOfExperience,
         }
-      else 
-        request = {
+        
+        return {
           email: this.email,
           password: this.password,
           address: this.address,
@@ -168,43 +220,11 @@ export default {
           companyName: this.companyName,
           country: this.country,
         }
-
-      console.log(request)
-
-      //if purpose is recruiter -> send info to companies table
-      //else if purpose is jobSeeker -> send info to users table
-
-      //resets all the input values
-      this.resetForm()
-      //after finishing everything, push the user back to the login page.
-      this.$router.push('/Login')
     },
-    validateEmail(){
-      if (!this.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-          this.warningMsg = 'Please enter a valid email address';
-          return false
-      }else{
-        this.warningMsg = '';
-        return true;
-      }
-    },
-    resetForm(){
-      this.allowRegistration=false,
-      this.warningMsg= ''
-      this.firstName=''
-      this.lastName= ''
-      this.email= ''
-      this.password= ''
-      this.confirmPassword= ''
-      this.birth_date= undefined
-      this.address= ''
-      this.purpose= ''
-      this.phoneNumber= null
-      this.jobField= ''
-      this.companyName= ''
-      this.country= ''
-      this.yearsOfExperience= null
-    }
+  },
+  mounted () {
+    this.setAllCountries()
+    this.setAllJobFields()
   }
 };
 </script>

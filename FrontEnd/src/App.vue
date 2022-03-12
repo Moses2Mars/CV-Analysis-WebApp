@@ -60,6 +60,12 @@ export default {
     logoutCurrentUser() {
       this.$store.commit('login_module/logout')
       this.$router.push('/')
+    },
+    setAllCountries(){
+      this.$store.dispatch('getCountriesFromDatabase')
+    },
+    setAllJobFields(){
+      this.$store.dispatch('getJobFieldsFromDatabase')
     }
   },
   computed: {
@@ -72,6 +78,11 @@ export default {
     firstName() {
       return this.$store.getters['login_module/getFirstName']
     }
+  },
+  mounted() {
+    this.setAllCountries()
+    this.setAllJobFields()
   }
+
 }
 </script>
