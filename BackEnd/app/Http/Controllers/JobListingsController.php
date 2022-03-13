@@ -49,4 +49,8 @@ class JobListingsController extends Controller
     public function getAllRunningJobs() {
         return JobListings::where('release_date', '<=', date('Y-m-d'))->where('expiry_date', '>', date('Y-m-d'))->get();
     }
+
+    public function getJobListingsFromUUID($uuid) {
+        return JobListings::where('uuid', $uuid)->first();
+    }
 }
