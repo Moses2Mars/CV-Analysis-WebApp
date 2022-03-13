@@ -3,7 +3,7 @@
     <nav class="bg-dark navbar navbar-expand-lg navbar-expand-md" style="height: 4.5rem;">
       <div class="container">
         <a class="navbar-brand" href="/"> <i class="fa fa-line-chart"></i> E-Recruitment </a>
-        <p v-if="name" class="m-auto pl-4">Welcome {{name}} </p>
+        <p v-if="name" class="m-auto pl-4"> Welcome {{name}} </p> 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">

@@ -9,12 +9,12 @@ const login_module = {
     },
     mutations: {
         login (state, payload) {
-            state.firstName = payload.firstName
+            state.name = payload.name
             state.isLoggedIn = true;
             state.purpose = payload.purpose
         },
         logout (state) {
-            state.firstName = null
+            state.name = null
             state.isLoggedIn = false
             state.purpose = null
         }
