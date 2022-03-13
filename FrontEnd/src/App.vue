@@ -77,7 +77,7 @@ export default {
     },
     name() {
       return this.$store.getters['login_module/getName']
-    }
+    },
   },
   mounted() {
     this.setAllCountries()
