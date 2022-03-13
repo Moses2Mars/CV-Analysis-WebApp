@@ -14,7 +14,7 @@ export default {
         InfoForUser,
     },
     data() {
-        return {
+        return {    
             job_uuid: this.$route.params.uuid,
             data_info: undefined,
         }
