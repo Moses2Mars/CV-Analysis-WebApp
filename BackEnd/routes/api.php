@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CountriesApiController;
 use App\Http\Controllers\JobFieldsApiController;
+use App\Http\Controllers\JobListingsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +25,6 @@ Route::get('/all-countries', [CountriesApiController::class, 'getAllCountries'])
 Route::get('/all-job-fields', [JobFieldsApiController::class, 'getAllJobFields']);
 Route::post('/create-user/jobSeeker', [UserController::class, 'createJobSeeker']);
 Route::post('/create-user/recruiter', [UserController::class, 'createRecruiter']);
+Route::post('create-job-listing', [JobListingsController::class, 'createJobListing']);
+
 Route::post('/login', [UserController::class, 'login']);
