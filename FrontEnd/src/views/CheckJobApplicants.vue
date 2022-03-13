@@ -21,7 +21,6 @@ export default {
     getAllJobListings() {
       this.$http.get(`get-job-listings/${this.companyId}`)
       .then((response)=> {
-        console.log(response.data)
         this.all_job_listings = response.data
       })
     }
