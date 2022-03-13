@@ -49,14 +49,14 @@ class UserController extends Controller
         $user = User::where(['user_email' => $request->email])->first();
         
         if(isset($user) && $this->checkHashedPassword($request->password, $user->password)) {
-            return ['email' => $user->user_email, 'name' => $user->first_name, 'purpose' => 'jobSeeker'];
+            return ['email' => $user->user_email, 'name' => $user->first_name, 'purpose' => 'jobSeeker', 'id'=> $user->id];
         }
 
         //if user doesnt exist in users table, check if exists in companies table     
         $user = Company::where(['company_email' => $request->email])->first();
         
         if(isset($user) && $this->checkHashedPassword($request->password, $user->password)) {
-            return ['email' => $user->company_email, 'name' => $user->company_name, 'purpose' => 'recruiter'];
+            return ['email' => $user->company_email, 'name' => $user->company_name, 'purpose' => 'recruiter', 'id'=> $user->id];
         }
         
         //if not, abort

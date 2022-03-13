@@ -11,6 +11,7 @@ class JobListingsController extends Controller
     public function createJobListing(Request $request) {
         $job = new JobListings;
         $job->uuid = Str::uuid();
+        $job->company_id = $request->companyId;
         $job->company_name = $request->companyName;
         $job->contact_email = $request->contactEmail;
         $job->release_date = $request->releaseDate;
