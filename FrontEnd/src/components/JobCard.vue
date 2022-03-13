@@ -1,6 +1,8 @@
 <template>
-    <div class="card-outline" :class="job.state == 'Complete' ? 'grey-background' : job.state == 'Running' ? 'green-background' : 'red-background'" @click="routeToJobListing">
-        <span class="job-position"><h2>{{job.position_required}}</h2></span>
+    <div class="card-outline" :class="job.state" @click="routeToJobListing">
+        <span class="job-position"> 
+            <h2>{{job.position_required}}</h2>
+        </span>
         <span class="job-field"> 
             <span class="static-text"> Field: </span> 
             {{job.field_required}}
@@ -13,9 +15,9 @@
             <span class="static-text"> Applicants Needed: </span>
             {{job.applicants_needed}} 
             </span>
-        <span class="applicants-applied"> 
+        <span class="applicants-applied" v-if="!is_candidate"> 
             <span class="static-text"> Applicants Applied: </span> 
-            143 
+            {{job.applicants_applied}}
         </span>
         <span class="release-date">
             <span class="static-text"> Release Date: </span> 
@@ -25,10 +27,15 @@
             <span class="static-text"> Expiry Date: </span>
             {{job.expiry_date}} 
         </span>  
-        <span class="job-list-state">
+        <span v-if="is_candidate" class="job-list-state"> 
+            <span class="static-text"> Company Name: </span>
+            {{job.company_name}}
+        </span>
+        <span v-else class="job-list-state">
             <span class="static-text"> Job Listing State: </span>
             {{job.state}}
         </span>
+        
   </div>
 </template>
 
@@ -39,6 +46,10 @@ export default {
             default: null,
             type: undefined,
         },
+        is_candidate: {
+            default: false,
+            type: Boolean,
+        }
     },
     methods: {
         routeToJobListing() {
@@ -54,43 +65,45 @@ export default {
     max-height: 10rem;
     width: 45rem;
     max-width: 45rem;
+    margin: auto; 
+    margin-top: 30px;
     border-radius: 14px;
     display: grid;
     grid-template-columns: 0.1fr 1fr 1fr 1fr 0.1fr;
     grid-template-rows: 0.5fr 2fr 1fr 1fr 2fr 0.5fr;
     align-items: center;
     justify-items: center;
+    background-color: rgb(91, 169, 206);
+    color: black;
     -webkit-box-shadow: 5px 7px 14px 1px #000000; 
     box-shadow: 5px 7px 14px 1px #000000;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.card-outline:hover {
+    background-color: rgb(12, 119, 168);
 }
 .static-text {
     font-weight: 600;
 }
-.green-background {
+.Running {
     background-color: rgb(96, 199, 82);
-    color: black;
-    transition: 0.3s;
 }
-.green-background:hover {
+.Running:hover {
     background-color: rgb(63, 177, 48);
-    cursor: pointer;
 }
-.grey-background {
+.Complete {
     background-color: rgb(95, 95, 95);
     color: white;
-    transition: 0.3s;
 }
-.grey-background:hover {
+.Complete:hover {
     background-color: rgb(59, 59, 59);
-    cursor: pointer;
 }
 
-.red-background {
+.Scheduled {
     background-color: rgb(243, 111, 111);
-    color: black;
-    transition: 0.3s;
 }
-.red-background:hover {
+.Scheduled:hover {
     background-color: rgb(231, 66, 66);
     cursor: pointer;
 }

@@ -45,4 +45,8 @@ class JobListingsController extends Controller
         }
         return $jobs;
     }
+
+    public function getAllRunningJobs() {
+        return JobListings::where('release_date', '<=', date('Y-m-d'))->where('expiry_date', '>', date('Y-m-d'))->get();
+    }
 }
