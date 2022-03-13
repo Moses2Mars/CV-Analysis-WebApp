@@ -8,14 +8,12 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <!-- note: there should be an option to use default values from when the company registered-->
                     Company Name: 
                     <input type="text" name="companyName" class="form-control text-center" placeholder="Company Name" v-model="companyName" disabled/>
                 </div>
                 <div class="form-group">
                     <input type="email" name="contactEmail" class="form-control text-center" placeholder="Company Contact / HR Email" v-model="contactEmail" required />
-                </div>
-                <!-- note: get list of possible jobs from the database and use a for loop  -->               
+                </div>               
                 <div class="form-group">
                   Job Field:
                   <select class="form-select" name='jobField' id='jobField' @change='setJobField($event)' required> &ShortDownArrow;
@@ -29,7 +27,7 @@
                     <input type="text" name="jobPosition" class="form-control text-center" placeholder="Job Position" autocomplete="off"  v-model="jobPosition" required/>
                 </div>
                 <div class="form-group">
-                    <input type="number" name="minExperience" class="form-control text-center" min="0" max="5" step="0.5" autocomplete="off"  placeholder="Minimum Years Of Experience" v-model="minExperience" required/>
+                    <input type="number" name="minExperience" class="form-control text-center" min="0" max="12" step="0.5" autocomplete="off"  placeholder="Minimum Years Of Experience" v-model="minExperience" required/>
                 </div>
                 <div class="form-group">
                     <input type="number" name="applicantsNeeded" class="form-control text-center" min="1" autocomplete="off"  placeholder="Applicants Needed" v-model="applicantsNeeded" required/>

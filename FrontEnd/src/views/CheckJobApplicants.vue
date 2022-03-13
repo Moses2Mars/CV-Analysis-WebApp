@@ -1,7 +1,8 @@
 <template>
+  <!-- this page is for recruiters only -->
   <div style="min-height: 60rem;">
     <div v-for="job in this.all_job_listings" :key="job.id">
-      <JobCard class="job-card" :job="job"></JobCard>
+      <JobCard :job="job"></JobCard>
     </div>
   </div>
 </template>
@@ -38,9 +39,6 @@ export default {
 </script>
 
 <style scoped>
-.job-card {
-  margin: auto; 
-  margin-top: 30px;
-}
+
 
 </style>
