@@ -1,7 +1,9 @@
 <template>
   <div>
       Company: 
-      {{data_info}}
+      <div v-for="applicant in data_info" :key="applicant.id">
+          {{applicant.user_email}}
+      </div>
   </div>
 </template>
 
