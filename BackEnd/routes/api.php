@@ -26,5 +26,6 @@ Route::get('/all-job-fields', [JobFieldsApiController::class, 'getAllJobFields']
 Route::post('/create-user/jobSeeker', [UserController::class, 'createJobSeeker']);
 Route::post('/create-user/recruiter', [UserController::class, 'createRecruiter']);
 Route::post('create-job-listing', [JobListingsController::class, 'createJobListing']);
+Route::get('get-job-listings/{company_id}', [JobListingsController::class, 'getJobListingsForCompany']);
 
 Route::post('/login', [UserController::class, 'login']);
