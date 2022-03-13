@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function createUser(Request $request) {
+    public function createJobSeeker(Request $request) {
         //if $request->purpose="jobSeeker"
-        dd($request);
         $user = new User;
         $user->first_name = $request->firstName;
         $user->last_name = $request->lastName;
@@ -26,5 +27,44 @@ class UserController extends Controller
         //encrypt the password because you should never save passwords as string
         $user->password = bcrypt($request->password);
         $user->save();
+
+        return $user;
+    }
+
+    public function createRecruiter(Request $request) {
+        //if $request->purpose="recruiter"
+        $user = new Company();
+        $user->company_name = $request->companyName;
+        $user->company_email = $request->email;
+        $user->country = $request->country;
+        $user->address = $request->address;
+        //encrypt the password because you should never save passwords as string
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return $user;
+    }
+
+    public function login(Request $request) {
+        $user = User::where(['user_email' => $request->email])->first();
+        
+        if(isset($user) && $this->checkHashedPassword($request->password, $user->password)) {
+            return ['email' => $user->user_email, 'name' => $user->first_name, 'purpose' => 'jobSeeker'];
+        }
+
+        //if user doesnt exist in users table, check if exists in companies table     
+        $user = Company::where(['company_email' => $request->email])->first();
+        
+        if(isset($user) && $this->checkHashedPassword($request->password, $user->password)) {
+            return ['email' => $user->company_email, 'name' => $user->company_name, 'purpose' => 'recruiter'];
+        }
+        
+        //if not, abort
+        abort(500, 'Something went wrong');
+    }
+
+    private function checkHashedPassword($passwordSent, $databasePassword) {
+        $isCorrectPassword = Hash::check($passwordSent, $databasePassword);
+        return $isCorrectPassword;
     }
 }

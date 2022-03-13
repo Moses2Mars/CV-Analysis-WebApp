@@ -39,20 +39,24 @@ export default {
   },
   methods: {
     loginUser() {
-      //send information to backend and get response,
-      //jobSeeker --- recruiter
-      this.$store.dispatch('login_module/authenticate', {email: this.user.email, password: this.user.password, purpose: 'jobSeeker'}, {root:true})
-      //if response code is 200, it means user credentials match with the backend
-      //take them to the home page
-      this.$router.push('/')
-      //if response is not 200, then reset input fields
+      //we use store because we can use Vuex Persisted State to keep user logged in on refresh
+      this.$store.dispatch('login_module/authenticate', this.user)
+          .then( () => {
+              this.$vToastify.success('Login Successful!')
+              //take them to the home page
+              this.$router.push('/')
+          }).catch( (error) => {
+              console.error(error)
+              this.$vToastify.error('Please Check Credentials And Try Again!')
+              this.resetInputFields()
+          })
     },
     resetInputFields(){
       this.user = {
         email: "",
         password: "",
       }
-    }
+    },
   },
 };
 </script>

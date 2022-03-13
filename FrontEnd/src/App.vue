@@ -3,7 +3,7 @@
     <nav class="bg-dark navbar navbar-expand-lg navbar-expand-md" style="height: 4.5rem;">
       <div class="container">
         <a class="navbar-brand" href="/"> <i class="fa fa-line-chart"></i> E-Recruitment </a>
-        <p v-if="firstName" class="m-auto pl-4">Welcome {{firstName}} </p>
+        <p v-if="name" class="m-auto pl-4"> Welcome {{name}} </p> 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -70,13 +70,13 @@ export default {
   },
   computed: {
     userType() {
-      return this.$store.getters['login_module/getUserType']
+      return this.$store.getters['login_module/getPurpose']
     },
     isLoggedIn() {
-      return this.$store.getters['login_module/getloggedInStatus']
+      return this.$store.getters['login_module/getLoggedInStatus']
     },
-    firstName() {
-      return this.$store.getters['login_module/getFirstName']
+    name() {
+      return this.$store.getters['login_module/getName']
     }
   },
   mounted() {
