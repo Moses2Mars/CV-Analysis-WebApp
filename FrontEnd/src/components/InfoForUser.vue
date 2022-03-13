@@ -2,6 +2,7 @@
   <div>
       User:
       {{data_info}}
+      <button> Apply For Job</button>
   </div>
 </template>
 
