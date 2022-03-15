@@ -38,7 +38,7 @@ class JobListingsController extends Controller
                     $job['state'] = 'Scheduled';
                     //if the release date is less than today's date and the expiry date is greater than today's date  
                     //it means the job list is running
-                }else if($job['release_date'] <= date('Y-m-d') && $job['expiry_date'] > date('Y-m-d')) {
+                }else if($job['release_date'] <= date('Y-m-d') && $job['expiry_date'] >= date('Y-m-d')) {
                     $job['state'] = 'Running';
                 }
             }
