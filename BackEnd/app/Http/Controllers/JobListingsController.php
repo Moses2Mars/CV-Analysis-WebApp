@@ -19,6 +19,7 @@ class JobListingsController extends Controller
         $job->field_required = $request->fieldRequired;
         $job->position_required = $request->positionRequired;
         $job->applicants_needed = $request->applicantsNeeded;
+        $job->applicants_applied = 0;
         $job->required_experience = $request->requiredExperience;
         $job->job_description = $request->jobDescription;
         $job->save();
@@ -38,7 +39,7 @@ class JobListingsController extends Controller
                     $job['state'] = 'Scheduled';
                     //if the release date is less than today's date and the expiry date is greater than today's date  
                     //it means the job list is running
-                }else if($job['release_date'] <= date('Y-m-d') && $job['expiry_date'] > date('Y-m-d')) {
+                }else if($job['release_date'] <= date('Y-m-d') && $job['expiry_date'] >= date('Y-m-d')) {
                     $job['state'] = 'Running';
                 }
             }
