@@ -19,6 +19,7 @@ class JobListingsController extends Controller
         $job->field_required = $request->fieldRequired;
         $job->position_required = $request->positionRequired;
         $job->applicants_needed = $request->applicantsNeeded;
+        $job->applicants_applied = 0;
         $job->required_experience = $request->requiredExperience;
         $job->job_description = $request->jobDescription;
         $job->save();
