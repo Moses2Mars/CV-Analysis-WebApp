@@ -6,19 +6,19 @@
         <p v-if="name" class="m-auto pl-4"> Welcome {{name}} </p> 
         <div class="collapse navbar-collapse ms-5" id="navbarNav">
             <ul class="navbar-nav ms-5">
-                <li class="nav-item mt-2" v-if="userType=='recruiter' || !isLoggedIn">
+                <li class="nav-item mt-2 link-style" v-if="userType=='recruiter' || !isLoggedIn">
                   <router-link :to="userType=='recruiter'? '/create-jobs' : '/login'" class="nav-link text-dark fw-bold">Hire Talent</router-link>
                 </li>
-                <li class="nav-item mt-2">
-                  <router-link :to="isLoggedIn? '/job-opportunities' : '/login'" class="nav-link text-dark fw-bold">Find Work</router-link>
+                <li class="nav-item mt-2 link-style">
+                  <router-link :to="isLoggedIn ? '/job-opportunities' : '/login'" class="nav-link text-dark fw-bold">Find Work</router-link>
                 </li>
 <!--                  <li class="nav-item mt-2">
                   <router-link to="/" class="nav-link text-dark fw-bold">Companies</router-link>
                 </li> -->
-                <li class="nav-item mt-2" v-if="userType=='recruiter'">
+                <li class="nav-item mt-2 link-style" v-if="userType=='recruiter'">
                   <router-link to="/check-job-applicants" class="nav-link text-dark fw-bold">Check Job Applicants </router-link>
                 </li>
-                <li class="nav-item mt-2">
+                <li class="nav-item mt-2 link-style">
                   <router-link to="/" class="nav-link text-dark fw-bold">Help Center</router-link>
                 </li>
                 <li class="nav-item" v-if="!isLoggedIn">
@@ -36,11 +36,11 @@
                     </router-link>
                 </li>
                 <li class="nav-item" v-if="isLoggedIn">
-                    <span class="nav-link smoothScroll text-dark">
-                      <button class="btn-login fw-bold blue-dash ms-5" @click="logoutCurrentUser">
+                  <nav-link class="nav-link smoothScroll text-dark">
+                      <button class="btn-login fw-bold me-5" @click="logoutCurrentUser">
                         Log Out
-                      </button>
-                    </span>
+                      </button> 
+                  </nav-link>
                 </li>
             </ul>
         </div>
@@ -71,7 +71,37 @@
   text-align: center;
 }
 </style>
-
+<style scoped>
+.nav-item {
+  margin: auto;
+}
+.btn-signup {
+  color: white;
+  transition: 0.2s;
+  border: 1px solid rgb(41, 64, 136);
+}
+.btn-signup:hover {
+  background-color: white;
+  color: rgb(88, 109, 175);
+}
+.btn-login {
+  color: rgb(31, 114, 168);
+  transition: 0.2s;
+  border: 1px solid rgb(41, 64, 136);
+}
+.btn-login:hover {
+  background-color:rgb(10, 142, 230);
+  color: white;
+  border: 1px solid rgb(41, 64, 136);
+}
+.link-style {
+  border-radius: 12px;
+}
+.link-style:hover {
+  background-color: rgb(174, 201, 226);
+  transition: 0.3s;
+}
+</style>
 <script>
 export default {
   methods: {
