@@ -1,7 +1,8 @@
 <template>
   <div>
-      Company: 
-      <div v-for="applicant in data_info" :key="applicant.id">
+      Users That Have Applied:
+      <div v-if="data_info.length === 0"> None </div>
+      <div else v-for="applicant in data_info" :key="applicant.id">
           {{applicant.user_email}}
       </div>
   </div>
