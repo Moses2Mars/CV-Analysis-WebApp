@@ -1,42 +1,52 @@
+import axios from 'axios';
+
 const login_module = {
     namespaced: true,
     state: {
-        firstName: null,
+        name: null,
         isLoggedIn: false,
-        userType: null,
+        purpose: null,
+        email: null,
+        user_id: null,
     },
     mutations: {
         login (state, payload) {
-            state.firstName = payload.firstName
+            state.name = payload.name
             state.isLoggedIn = true;
-            state.userType = payload.purpose
+            state.purpose = payload.purpose
+            state.email = payload.email
+            state.user_id = payload.id
         },
         logout (state) {
-            state.firstName = null
+            state.name = null
             state.isLoggedIn = false
-            state.userType = null
+            state.purpose = null
+            state.email = null
         }
     },
     actions: {
-        authenticate ({ commit }, { email, password, purpose }) {
-            //validate these credentials with the backend, for now we will console.log them 
-            //so we dont get "unused vars" error
-            console.log(email, password, purpose)
-            if(purpose == 'recruiter')
-                commit('login', {firstName: 'AUST', purpose: purpose})
-            else 
-                commit('login', {firstName: 'Moussa', purpose: purpose})
+        authenticate ({ commit }, { email, password }) {
+            return axios.post('/login', {email: email, password: password})
+            .then( (response)=> {
+                commit('login', {name: response.data.name, email: response.data.email, purpose: response.data.purpose, id: response.data.id})
+            })
         },
     },
     getters: {
-        getloggedInStatus (state) {
+        getLoggedInStatus (state) {
             return state.isLoggedIn
         },
-        getFirstName (state) {
-            return state.firstName
+        getName (state) {
+            return state.name
         },
-        getUserType (state) {
-            return state.userType
+        getEmail (state) {
+            return state.email
+        },
+        getPurpose (state) {
+            return state.purpose
+        },
+        getUserID (state) {
+            return state.user_id;
         }
     }
 }
