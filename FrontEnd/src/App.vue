@@ -6,14 +6,17 @@
         <p v-if="name" class="m-auto pl-4"> Welcome {{name}} </p> 
         <div class="collapse navbar-collapse ms-5" id="navbarNav">
             <ul class="navbar-nav ms-5">
-                <li class="nav-item mt-2">
-                  <router-link to="/" class="nav-link text-dark fw-bold">Hire Talent</router-link>
+                <li class="nav-item mt-2" v-if="userType=='recruiter'">
+                  <router-link to="/create-jobs" class="nav-link text-dark fw-bold">Hire Talent</router-link>
                 </li>
                 <li class="nav-item mt-2">
-                  <router-link to="/" class="nav-link text-dark fw-bold">Find Work</router-link>
+                  <router-link to="/job-opportunities" class="nav-link text-dark fw-bold">Find Work</router-link>
                 </li>
-                 <li class="nav-item mt-2">
+<!--                  <li class="nav-item mt-2">
                   <router-link to="/" class="nav-link text-dark fw-bold">Companies</router-link>
+                </li> -->
+                <li class="nav-item mt-2" v-if="userType=='recruiter'">
+                  <router-link to="/check-job-applicants" class="nav-link text-dark fw-bold">Check Job Applicants </router-link>
                 </li>
                 <li class="nav-item mt-2">
                   <router-link to="/" class="nav-link text-dark fw-bold">Help Center</router-link>
@@ -26,23 +29,18 @@
                     </router-link>
                 </li>
                 <li class="nav-item" v-if="!isLoggedIn">
-                    <router-link to="/login" class="nav-link smoothScroll text-dark">
+                    <router-link to="/register" class="nav-link smoothScroll text-dark">
                       <button class="btn-signup fw-bold me-5">
                         Sign Up
                       </button> 
                     </router-link>
                 </li>
-                <li class="nav-item" v-if="userType=='jobSeeker'">
-                  <router-link to="/job-opportunities" class="nav-link text-dark">Job Opportunities </router-link>
-                </li>
-                <li class="nav-item" v-if="userType=='recruiter'">
-                  <router-link to="/create-jobs" class="nav-link text-dark">Create Jobs </router-link>
-                </li>
-                <li class="nav-item" v-if="userType=='recruiter'">
-                  <router-link to="/check-job-applicants" class="nav-link text-dark">Check Job Applicants </router-link>
-                </li>
                 <li class="nav-item" v-if="isLoggedIn">
-                  <button @click="logoutCurrentUser" class="nav-link contact text-black my-auto"> Log Out</button>
+                    <span class="nav-link smoothScroll text-dark">
+                      <button class="btn-login fw-bold blue-dash ms-5" @click="logoutCurrentUser">
+                        Log Out
+                      </button>
+                    </span>
                 </li>
             </ul>
         </div>
