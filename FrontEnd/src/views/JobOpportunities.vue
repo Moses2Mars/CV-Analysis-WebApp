@@ -1,8 +1,16 @@
 <template>
   <!-- this page is for candidates only -->
   <div style="min-height: 60rem;">
-    <div v-for="job in running_jobs" :key="job.id">
-      <JobCard :job="job" :is_candidate='true'></JobCard>
+    <div v-if="loading">
+      <h1 style="margin-top: 50px;"> Loading... Please Wait... </h1>
+    </div>
+    <div v-else-if="running_jobs.length">
+      <div v-for="job in running_jobs" :key="job.id">
+        <JobCard :job="job" :is_candidate='true'></JobCard>
+      </div>
+    </div>
+    <div v-else>
+      <h1 style="margin-top: 50px;"> No Jobs Currently Running </h1>
     </div>
   </div>
 </template>
@@ -16,20 +24,24 @@ export default {
   data() {
     return {
       running_jobs: [],
+      loading: false,
     }
   },
   methods: {
-    getAllRunningJobs() {
+    async getAllRunningJobs() {
+      this.loading = true;
       this.$http.get('get-running-jobs')
           .then( (response)=> {
+            this.loading = false;
             this.running_jobs = response.data
           }).catch( (error)=> {
+            this.loading = false;
             console.error(error)
           })
     }
   },
-  mounted() {
-    this.getAllRunningJobs()
+  async created() {
+    await this.getAllRunningJobs()
   }
 }
 </script>

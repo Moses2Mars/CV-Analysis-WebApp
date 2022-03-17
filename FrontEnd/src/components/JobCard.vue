@@ -53,8 +53,15 @@ export default {
     },
     methods: {
         routeToJobListing() {
+            if(!this.isLoggedIn)
+                return this.$router.push(`/login`);
             this.$router.push(`/job-listing/${this.job.uuid}`);
         }
+    },
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters['login_module/getLoggedInStatus']
+        },
     }
 }
 </script>
