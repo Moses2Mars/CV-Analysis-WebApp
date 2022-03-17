@@ -11,7 +11,6 @@
         </div>
 
         <div class="row pt-5">
-
             <div class="col-lg-3">
                 <div class="card" style="width: 18rem; background-color: #E9F5FE; border-radius: 20px;">
                     <img src="../assets/img/post-jobs.jpg" class="card-img-top" alt="Post Jobs Image" height="200px">
