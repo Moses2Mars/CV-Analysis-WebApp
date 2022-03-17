@@ -1,19 +1,60 @@
 <template>
   <section id="scroll">
         <div class="container px-5">
-          <div class="row gx-5 align-items-center">
-              <div class="col-lg-6 order-lg-2">
-                  <div class="p-5"><img class="img-fluid rounded-circle" src="../assets/img/GoalCropped.jpg" alt="..." /></div>
-              </div>
-              <div class="col-lg-6 order-lg-1">
-                  <div class="p-5">
-                      <h2 class="display-4">Our Goal: </h2>
-                      <p>What we aim to do with this project is to provide candidates a quick and easy way to apply to jobs, 
-                        and a way to make the hiring process for job seekers a lot easier and less stressfull.</p>
-                  </div>
-              </div>
-          </div>
+        <div class="row align-items-center">
+            <div class="col-lg-12">
+                <div class="display-5 fw-bold">For Employers</div>
+                <p class="text-gray-20 pt-3 text-center">
+                    Find the best talent for your Full-time, part-time, freelance, or internship jobs in any location.
+                </p>
+            </div>
         </div>
+
+        <div class="row pt-5">
+
+            <div class="col-lg-3">
+                <div class="card" style="width: 18rem; background-color: #E9F5FE; border-radius: 20px;">
+                    <img src="../assets/img/post-jobs.jpg" class="card-img-top" alt="Post Jobs Image" height="200px">
+                    <div class="card-body">
+                        <div class="fw-bold fs-5">Post Jobs For Free</div>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                 <div class="card" style="width: 18rem; background-color: #E9F5FE; border-radius: 20px;">
+                    <img src="../assets/img/browse-candidates.jpg" class="card-img-top" alt="Browse Candidates Image" height="200px">
+                    <div class="card-body">
+                        <div class="fw-bold fs-5">Browse Candidates</div>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                 <div class="card" style="width: 18rem; background-color: #E9F5FE; border-radius: 20px;">
+                    <img src="../assets/img/get-best-matches.jpg" class="card-img-top" alt="Get Best Matches Image" height="200px">
+                    <div class="card-body">
+                        <div class="fw-bold fs-5">Get Best Matches</div>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                 <div class="card" style="width: 18rem; background-color: #E9F5FE; border-radius: 20px;">
+                    <img src="../assets/img/personality-prediction.jpg" class="card-img-top" alt="Personality Prediction Image" height="200px">
+                    <div class="card-body">
+                        <div class="fw-bold fs-5">Personality Prediction</div>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     </section>
 </template>
 
