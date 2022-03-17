@@ -9,7 +9,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     Company Name: 
-                    <input type="text" name="companyName" class="form-control text-center" placeholder="Company Name" v-model="companyName" disabled/>
+                    <input type="text" name="companyName" class="form-control text-center" placeholder="Company Name" v-model="companyName" :disabled="isLoggedIn"/>
                 </div>
                 <div class="form-group">
                     <input type="email" name="contactEmail" class="form-control text-center" placeholder="Company Contact / HR Email" v-model="contactEmail" required />
@@ -85,6 +85,9 @@ export default {
       this.jobField = e.target.value
     },
     createJob() {
+      if(!this.isLoggedIn)
+        return this.$router.push('/login')
+
       let request = {
         companyId: this.userId,
         companyName: this.companyName,
@@ -127,7 +130,10 @@ export default {
     },
     userId() {
       return this.$store.getters['login_module/getUserID']
-    }
+    },
+    isLoggedIn() {
+      return this.$store.getters['login_module/getLoggedInStatus']
+    },
   },
   mounted() {
     this.setAllJobFields()
