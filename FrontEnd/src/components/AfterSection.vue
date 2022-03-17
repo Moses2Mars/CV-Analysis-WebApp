@@ -13,7 +13,7 @@
                         <div class="card-body">
                             <div class="fw-bold fs-5 py-3">Web, Mobile, &#38; IT </div>
                             <div class="card-text text-16">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-                            <i class="fa-solid fa-laptop-code" style="font-size: 50px; color: black;"></i>
+                            <i class="fas fa-laptop-code"></i>
                         </div>
                     </div>
                     </a>
@@ -24,7 +24,7 @@
                         <div class="card-body">
                             <div class="fw-bold fs-5 py-3">Marketing 	&#38; Sales</div>
                             <div class="card-text text-16">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-                            <i class="fa-solid fa-laptop-code" style="font-size: 50px; color: black;"></i>
+                            <i class="fas fa-laptop-code"></i>
                         </div>
                     </div>
                     </a>
@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <div class="fw-bold fs-5 py-3">Design 	&#38; Creative</div>
                             <div class="card-text text-16">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-                            <i class="fa-solid fa-laptop-code" style="font-size: 50px; color: black;"></i>
+                            <i class="fas fa-laptop-code" style="font-size: 50px; color: black;"></i>
                         </div>
                     </div>
                     </a>
