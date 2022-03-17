@@ -7,10 +7,10 @@
         <div class="collapse navbar-collapse ms-5" id="navbarNav">
             <ul class="navbar-nav ms-5">
                 <li class="nav-item mt-2 link-style" v-if="userType=='recruiter' || !isLoggedIn">
-                  <router-link :to="userType=='recruiter'? '/create-jobs' : '/login'" class="nav-link text-dark fw-bold">Hire Talent</router-link>
+                  <router-link to='/create-jobs' class="nav-link text-dark fw-bold">Hire Talent</router-link>
                 </li>
                 <li class="nav-item mt-2 link-style">
-                  <router-link :to="isLoggedIn ? '/job-opportunities' : '/login'" class="nav-link text-dark fw-bold">Find Work</router-link>
+                  <router-link to="/job-opportunities" class="nav-link text-dark fw-bold">Find Work</router-link>
                 </li>
 <!--                  <li class="nav-item mt-2">
                   <router-link to="/" class="nav-link text-dark fw-bold">Companies</router-link>
