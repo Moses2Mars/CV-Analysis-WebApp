@@ -11385,6 +11385,36 @@ html {
   height: 666px;
 }
 
+.skills-icon{
+  font-size:30px;
+}
+
+.arrow-skills{
+  width: 58px;
+  height: 58px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 50px 0 14px;
+  transition: all .3s ease-in-out;
+  transform-origin: bottom right;
+  background-color: #2196f3;
+}
+
+.arrow-icon{
+  color: white;
+  margin-top: 30px;
+  margin-left: 13px;
+}
+
+.trigger-arrow{
+  visibility: hidden;
+}
+
+.card-hover:hover .trigger-arrow{
+  visibility: visible;
+}
+
 .text-16{
 font-size: 16px;
 }

@@ -9,7 +9,7 @@
               <div class="text-wrapper text-dark display-1 pb-5">
                 <div class="box b1">Inspiration</div>
                   <div class="box b2">Creativity</div>
-                  <div class="box b3">Profesionals</div>
+                  <div class="box b3">Professionals</div>
                   <div class="box b4">Personality</div>
               </div>
           </div>
@@ -53,17 +53,20 @@
   </div>
     <GoalSection/>
     <AfterSection style="margin-top: 50px;"/>
+    <ForJobSeekersSection/>
   </div>
 </template>
 
 <script>
 import GoalSection from './GoalSection.vue'
 import AfterSection from './AfterSection.vue'
+import ForJobSeekersSection from './ForJobSeekersSection.vue'
 export default {
   name: "HelloWorld",
   components: {
     GoalSection,
-    AfterSection
+    AfterSection,
+    ForJobSeekersSection
   },
   methods: {
     routeTo(link) {
