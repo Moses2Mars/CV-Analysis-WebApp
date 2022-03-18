@@ -1,17 +1,25 @@
 <template>
   <div class="home">
-    <HeroSection />
+    <MainSection />
+    <ForEmployersSection/>
+    <HireProfessionalsSection/>
+    <ForJobSeekersSection/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HeroSection from '@/components/HeroSection.vue'
-
+import MainSection from '@/components/MainSection.vue'
+import ForEmployersSection from '@/components/ForEmployersSection.vue'
+import HireProfessionalsSection from '@/components/HireProfessionalsSection.vue'
+import ForJobSeekersSection from '@/components/ForJobSeekersSection.vue'
 export default {
   name: 'Home',
   components: {
-    HeroSection
+    MainSection,
+    ForEmployersSection,
+    HireProfessionalsSection,
+    ForJobSeekersSection
   },
   methods:{
   },
