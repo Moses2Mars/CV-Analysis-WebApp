@@ -1,6 +1,6 @@
 <template>
   <div id="app">   
-    <nav class="bg-white navbar navbar-expand-lg navbar-expand-md" style="height: 4.5rem;">
+    <nav class="bg-white navbar navbar-expand-lg navbar-expand-md border-bottom border-light" style="height: 4.5rem;">
       <div class="container">
         <a class="navbar-brand text-dark fw-bold fs-4" href="/"> <i class="fa fa-line-chart me-2 blue-dash"></i><span class="blue-dash">Recruit</span>World</a>
         <p v-if="name" class="m-auto pl-4"> Welcome {{name}} </p> 
@@ -10,7 +10,7 @@
                   <router-link to='/create-jobs' class="nav-link text-dark fw-bold">Hire Talent</router-link>
                 </li>
                 <li class="nav-item mt-2 link-style">
-                  <router-link to="/job-opportunities" class="nav-link text-dark fw-bold">Find Work</router-link>
+                  <router-link to="/find-work" class="nav-link text-dark fw-bold">Find Work</router-link>
                 </li>
 <!--                  <li class="nav-item mt-2">
                   <router-link to="/" class="nav-link text-dark fw-bold">Companies</router-link>
@@ -36,11 +36,11 @@
                     </router-link>
                 </li>
                 <li class="nav-item" v-if="isLoggedIn">
-                  <nav-link class="nav-link smoothScroll text-dark">
+                  <nav class="nav-link smoothScroll text-dark">
                       <button class="btn-login fw-bold me-5" @click="logoutCurrentUser">
                         Log Out
                       </button> 
-                  </nav-link>
+                  </nav>
                 </li>
             </ul>
         </div>

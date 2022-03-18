@@ -4,28 +4,18 @@
       <h1> Loading... Please Wait... </h1>
       <LoadingComponent></LoadingComponent>
     </div>
-    <div v-else-if="all_job_listings.length">
+    <div v-else-if="running_jobs.length">
       <h5>Search For A Job</h5>
       <input type="text" placeholder="Search">
       <div class="main-grid">
         All Results
         <div class="left-section"> 
-          <div v-for="job in all_job_listings" :key="job.id">
-            <JobCard :job="job" @click.native="getJobApplicants(job)"></JobCard>
+          <div v-for="job in running_jobs" :key="job.id">
+            <JobCard :job="job" :is_candidate="true" @click.native="setClickedJob(job)"></JobCard>
           </div>
         </div>
         <div class="right-section">
-          <div v-if="job_applicants.length">
-            <div v-for="applicant in job_applicants" :key="applicant.id">
-              {{applicant.user_email}}
-            </div>
-          </div>
-          <div v-else-if="loading">
-            <LoadingComponent></LoadingComponent>         
-          </div>
-          <div v-else>
-            No Applicants Have Applied So Far
-          </div>
+          <JobInformation :job_info="job_info"></JobInformation>
         </div>
       </div>
     </div>
@@ -37,49 +27,41 @@
 
 <script>
 import JobCard from '@/components/cardComponents/JobCard.vue'
+import JobInformation from '@/components/JobInformation.vue'
 import LoadingComponent from '@/components/LoadingComponent.vue'
 export default {
   components: {
     JobCard,
-    LoadingComponent,
+    JobInformation,
+    LoadingComponent
   },
-  data () {
+  data() {
     return {
-      all_job_listings: [],
-      job_applicants: [],
+      running_jobs: [],
       loading: false,
+      job_info: undefined,
+      job_applicants: [],
     }
   },
   methods: {
-    getAllJobListings() {
-      this.loading = true
-        this.$http.get(`get-job-listings/${this.companyId}`)
-        .then((response)=> {
-          this.all_job_listings = response.data
-        })
-      this.loading = false
-    },
-    getJobApplicants(job){
-      this.loading = true
-      //get info from job_applications database
-      this.$http.get(`get-job-applicants/${job.uuid}`)
-          .then( (response) => {
-              this.job_applicants = response.data
+    async getAllRunningJobs() {
+      this.loading = true;
+      this.$http.get('get-running-jobs')
+          .then( (response)=> {
+            this.loading = false;
+            this.running_jobs = response.data
           }).catch( (error)=> {
-              console.error(error)
+            this.loading = false;
+            console.error(error)
           })
-      this.loading = false
-    }
+    },
+    setClickedJob(job) {
+      this.job_info = job
+    },
   },
-  computed: {
-    companyId() {
-      return this.$store.getters['login_module/getUserID']
-    }
-  },
-  mounted() {
-    this.getAllJobListings();
+  async created() {
+    await this.getAllRunningJobs()
   }
-
 }
 </script>
 
@@ -114,5 +96,4 @@ h1 {
   background-color: rgb(255, 255, 255);
   border-radius: 3px;
 }
-
 </style>
