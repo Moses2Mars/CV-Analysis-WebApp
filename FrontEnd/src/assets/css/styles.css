@@ -11317,38 +11317,213 @@ html {
   letter-spacing: 0.1rem;
 }
 
-header.masthead {
+.masthead {
   position: relative;
   overflow: hidden;
-  padding-top: calc(7rem + 72px);
   padding-bottom: 7rem;
-  background: linear-gradient(0deg, #ff6a00 0%, #ee0979 100%);
+  /* background: linear-gradient(0deg, #ff6a00 0%, #ee0979 100%); */
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: scroll;
   background-size: cover;
 }
-header.masthead .masthead-content {
+.masthead .masthead-content {
   z-index: 1;
   position: relative;
 }
-header.masthead .masthead-content .masthead-heading {
+
+.text-blue{
+  color: #2196F3;
+}
+
+.blue-dash{
+  color:#2196F3;
+}
+
+.btn-post {
+  display:block;
+  border-radius: 28px;
+  height: 50px;
+  width: 195.67px;
+  border: none;
+  background-color: #2196F3;
+  color: white;
+}
+
+.btn-find {
+  display:block;
+  border-radius: 28px;
+  height: 50px;
+  width: 195.67px;
+  border: 1px solid #2196F3;
+  background-color: white;
+  color: #2196F3;
+}
+
+.btn-login{
+  display:block;
+  border-radius: 28px;
+  height: 32px;
+  width: 79px;
+  border: 1px solid #2196F3;
+  background-color: white;
+  color: #2196F3;
+}
+
+.btn-signup {
+  display:block;
+  border-radius: 28px;
+  height: 32px;
+  width: 79px;
+  border: none;
+  background-color: #2196F3;
+  color: white;
+}
+
+.section-bg-light-blue{
+  background-color: #F0F6FA;
+  height: 666px;
+}
+
+.skills-icon{
+  font-size:30px;
+}
+
+.arrow-skills{
+  width: 58px;
+  height: 58px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 50px 0 14px;
+  transition: all .3s ease-in-out;
+  transform-origin: bottom right;
+  background-color: #2196f3;
+}
+
+.arrow-icon{
+  color: white;
+  margin-top: 30px;
+  margin-left: 13px;
+}
+
+.trigger-arrow{
+  visibility: hidden;
+}
+
+.card-hover:hover .trigger-arrow{
+  visibility: visible;
+}
+
+.text-16{
+font-size: 16px;
+}
+
+.text-gray-20{
+  font-size: 20px;
+  color: gray;
+}
+
+.masthead .masthead-content .masthead-heading {
   font-size: 4rem;
 }
-header.masthead .masthead-content .masthead-subheading {
+.masthead .masthead-content .masthead-subheading {
   font-size: 2rem;
 }
-header.masthead .bg-circle {
+.masthead .bg-circle {
   z-index: 0;
   position: absolute;
   border-radius: 100%;
   background: linear-gradient(0deg, #ee0979 0%, #ff6a00 100%);
 }
-header.masthead .bg-circle-1 {
+.masthead .bg-circle-1 {
   height: 90rem;
   width: 90rem;
   bottom: -55rem;
   left: -55rem;
+}
+
+.masthead .box{
+  opacity: 0;
+  position: absolute;
+  width: 97%;
+  text-align: center;
+}
+
+.masthead .b1{
+  animation: ani1 10s infinite;
+}
+.masthead .b2{
+  animation: ani2 10s infinite;
+}
+.masthead .b3{
+  animation: ani3 10s infinite;
+}
+.masthead .b4{
+  animation: ani4 10s infinite;
+}
+.masthead .b5{
+  animation: ani5 10s infinite;
+}
+
+@keyframes ani1{
+  0%{
+    opacity: 0;
+  }
+  10%{
+    opacity: 1;
+  }
+  20%{
+    opacity: 0;
+  }
+}
+
+@keyframes ani2{
+  20%{
+    opacity: 0;
+  }
+  30%{
+    opacity: 1;
+  }
+  40%{
+    opacity: 0;
+  }
+}
+
+@keyframes ani3{
+  40%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  60%{
+    opacity: 0;
+  }
+}
+
+@keyframes ani4{
+  60%{
+    opacity: 0;
+  }
+  70%{
+    opacity: 1;
+  }
+  80%{
+    opacity: 0;
+  }
+}
+
+@keyframes ani5{
+  80%{
+    opacity: 0;
+  }
+  90%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
 }
 header.masthead .bg-circle-2 {
   height: 50rem;

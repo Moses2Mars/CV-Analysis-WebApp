@@ -1,6 +1,6 @@
 <template>
-  <div class="container mt-5" id="container">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+  <div class="container margin-top-50 mt-5" id="container">
+
     <div class="form-container sign-in-container">
       <form role="form" @submit.prevent="loginUser">
         <h1>Sign in</h1>
@@ -8,13 +8,20 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a><br> 
           <span>via linkedIn </span> 
         </div>
+
         <span>or use your account</span>
+
         <input type="email" placeholder="Email" v-model="user.email" required />
         <input type="password" placeholder="Password" v-model="user.password" required />
+
         <a href="#">Forgot your password?</a>
-        <button type="submit">Sign In</button>
+        <button type="submit" v-if="!loading">Sign In</button>
+        <div v-else>
+          <LoadingComponent></LoadingComponent>
+        </div>
       </form>
     </div>
+
     <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-right">
@@ -24,28 +31,35 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
+import LoadingComponent from '../components/LoadingComponent.vue';
 export default {
+  components: { LoadingComponent },
   data() {
     return {
       user: {
         email: "",
         password: "",
       },
+      loading: false,
     };
   },
   methods: {
     loginUser() {
       //we use store because we can use Vuex Persisted State to keep user logged in on refresh
+      this.loading = true
       this.$store.dispatch('login_module/authenticate', this.user)
           .then( () => {
+              this.loading = false
               this.$vToastify.success('Login Successful!')
               //take them to the home page
               this.$router.push('/')
           }).catch( (error) => {
+              this.loading = false
               console.error(error)
               this.$vToastify.error('Please Check Credentials And Try Again!')
               this.resetInputFields()
@@ -107,12 +121,12 @@ a {
   margin: 15px 0;
 }
 
-button {
+ button {
   
   cursor: pointer;
   border-radius: 20px;
-  border: 1px solid #ff4b2b;
-  background-color: #ff4b2b;
+  border: 1px solid #2196F3;
+  background-color: #2196F3;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -120,15 +134,15 @@ button {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
-}
+} 
 
 button:hover{
   transition: 0.3s;
-  background-color: #df4125;
+  background-color: #2083D3;
 }
 button.ghost:hover{
   transition: 0.3s;
-  background-color: #e64327;
+  background-color: #1E72B7;
 }
 
 button:active {
@@ -237,9 +251,9 @@ input {
 }
 
 .overlay {
-  background: #ff416c;
-  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  background: #2196F3;
+  background: -webkit-linear-gradient(to right, #58AFF7, #2196F3);
+  background: linear-gradient(to right, #58AFF7, #2196F3);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
