@@ -40,6 +40,7 @@ export default {
       running_jobs: [],
       loading: false,
       job_info: undefined,
+      job_applicants: [],
     }
   },
   methods: {
@@ -56,7 +57,7 @@ export default {
     },
     setClickedJob(job) {
       this.job_info = job
-    }
+    },
   },
   async created() {
     await this.getAllRunningJobs()

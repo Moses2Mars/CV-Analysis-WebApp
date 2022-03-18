@@ -18,11 +18,11 @@
             {{job.expiry_date}} 
         </span> 
         <span class="applicants-applied" v-if="!is_candidate"> 
-            <span class="static-text"> Applicants Applied: </span> 
+            <span class="static-text"> Applicants:</span> 
             {{job.applicants_applied}}
         </span> 
         <span v-if="!is_candidate" class="job-list-state">
-            <span class="static-text"> Job Listing State: </span>
+            <span class="static-text"> State: </span>
             {{job.state}}
         </span> 
     </div>
@@ -98,34 +98,33 @@ export default {
 }
 .job-field {
     padding: 15px;
-    grid-column: 1/3;
-    grid-row: 2/3;
+    grid-column: 1/2;
+    grid-row: 2/4;
     
 }
 .company-name {
     padding: 15px;
     grid-column: 1/2;
-    grid-row: 3/4;   
+    grid-row: 4/5;   
 }
 .release-date {
     padding: 15px;
     grid-column: 1/2;
-    grid-row: 4/5;
+    grid-row: 5/6;
 }
 .expiry-date {
     padding: 15px;
-    justify-self: right;
     grid-column: 2/3;
-    grid-row: 4/5;
+    grid-row: 5/6;
 }
 .job-list-state {
     padding: 15px;
     grid-column: 2/3;
-    grid-row: 1/2;
+    grid-row: 2/3;
 }
 .applicants-applied {
     padding: 15px;
     grid-column: 2/3;
-    grid-row: 2/3;
+    grid-row: 3/4;
 }
 </style>
