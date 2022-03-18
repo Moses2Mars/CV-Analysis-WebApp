@@ -11348,6 +11348,12 @@ html {
   border: none;
   background-color: #2196F3;
   color: white;
+  transition: 0.3s;
+}
+.btn-post:hover {
+  background-color: white;
+  color: #2196F3;
+  border: 1px solid rgb(41, 64, 136);
 }
 
 .btn-find {
@@ -11358,6 +11364,12 @@ html {
   border: 1px solid #2196F3;
   background-color: white;
   color: #2196F3;
+  transition: 0.3s;
+}
+.btn-find:hover {
+  background-color:rgb(10, 142, 230);
+  color: white;
+  border: 1px solid rgb(41, 64, 136);
 }
 
 .btn-login{
