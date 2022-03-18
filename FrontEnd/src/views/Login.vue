@@ -1,6 +1,6 @@
 <template>
   <div class="container margin-top-50 mt-5" id="container">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
     <div class="form-container sign-in-container">
       <form role="form" @submit.prevent="loginUser">
         <h1>Sign in</h1>
@@ -8,13 +8,20 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a><br> 
           <span>via linkedIn </span> 
         </div>
+
         <span>or use your account</span>
+
         <input type="email" placeholder="Email" v-model="user.email" required />
         <input type="password" placeholder="Password" v-model="user.password" required />
+
         <a href="#">Forgot your password?</a>
-        <button type="submit">Sign In</button>
+        <button type="submit" v-if="!loading">Sign In</button>
+        <div v-else>
+          <LoadingComponent></LoadingComponent>
+        </div>
       </form>
     </div>
+
     <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-right">
@@ -24,28 +31,35 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
+import LoadingComponent from '../components/LoadingComponent.vue';
 export default {
+  components: { LoadingComponent },
   data() {
     return {
       user: {
         email: "",
         password: "",
       },
+      loading: false,
     };
   },
   methods: {
     loginUser() {
       //we use store because we can use Vuex Persisted State to keep user logged in on refresh
+      this.loading = true
       this.$store.dispatch('login_module/authenticate', this.user)
           .then( () => {
+              this.loading = false
               this.$vToastify.success('Login Successful!')
               //take them to the home page
               this.$router.push('/')
           }).catch( (error) => {
+              this.loading = false
               console.error(error)
               this.$vToastify.error('Please Check Credentials And Try Again!')
               this.resetInputFields()

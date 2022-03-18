@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
-import JobOpportunities from '../views/JobOpportunities.vue'
+import FindWork from '../views/FindWork.vue'
 import CheckJobApplicants from '../views/CheckJobApplicants.vue'
 import JobListing from '../views/JobListing.vue'
 import CreateJobs from '../views/CreateJobs.vue'
@@ -27,9 +27,9 @@ const routes = [
     component: Register
   },
   {
-    path: '/job-opportunities',
-    name: 'JobOpportunities',
-    component: JobOpportunities,
+    path: '/find-work',
+    name: 'FindWork',
+    component: FindWork,
     meta: { requiresAuth: true },
   },
   {

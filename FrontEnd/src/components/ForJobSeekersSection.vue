@@ -14,7 +14,7 @@
                 <ActionCard img_name="expand-your-network.jpg" title="Expand Your Network"></ActionCard>
                 <ActionCard img_name="post-services.jpg" title="Post Services"></ActionCard>
                 <ActionCard img_name="dream-job.jpg" title="Apply to Your Dream Jobs"> </ActionCard>
-                <ActionCard img_name="personality-prediction.jpg" title="Personality Prediction"> </ActionCard>
+                <ActionCard img_name="high-five.jpg" title="Get Hired"> </ActionCard>
             </div>
         </div>
     </section>

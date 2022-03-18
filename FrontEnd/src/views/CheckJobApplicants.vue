@@ -1,6 +1,6 @@
 <template>
   <!-- this page is for recruiters only -->
-  <div style="min-height: 60rem;">
+  <div style="min-height: 30rem;">
     <div v-for="job in this.all_job_listings" :key="job.id">
       <JobCard :job="job"></JobCard>
     </div>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import JobCard from '@/components/JobCard.vue'
+import JobCard from '@/components/cardComponents/JobCard.vue'
 export default {
   components: {
     JobCard,

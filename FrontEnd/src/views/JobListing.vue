@@ -1,17 +1,17 @@
 <template>
-  <div style="min-height: 60rem;"> 
+  <div style="min-height: 30rem;"> 
+      <JobInformation :data_info="data_info"></JobInformation>
       <InfoForCompany v-if="this.userType=='recruiter'" :data_info="data_info"></InfoForCompany>
-      <InfoForUser v-else :data_info="data_info"></InfoForUser>
   </div>
 </template>
 
 <script>
 import InfoForCompany from '@/components/InfoForCompany.vue'
-import InfoForUser from '@/components/InfoForUser.vue'
+import JobInformation from '@/components/JobInformation.vue'
 export default {
     components: {
         InfoForCompany,
-        InfoForUser,
+        JobInformation,
     },
     data() {
         return {    

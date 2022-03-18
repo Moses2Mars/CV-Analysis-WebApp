@@ -40,7 +40,7 @@
         </div>
         <div class="col-5 text-center">
           <div class="d-flex justify-content-start">
-            <button class="btn-find my-5 fw-bold" @click="routeTo('/job-opportunities')">
+            <button class="btn-find my-5 fw-bold" @click="routeTo('/find-work')">
               Find Work
             </button>
           </div>
@@ -56,7 +56,7 @@
 export default {
   methods: {
     routeTo(link) {
-      if(this.userType=='jobSeeker' && link=='/job-opportunities') {
+      if(this.userType=='jobSeeker' && link=='/find-work') {
         this.$router.push(link)
       } else if(this.userType=='recruiter' && link=='/create-jobs') {
         this.$router.push(link)
