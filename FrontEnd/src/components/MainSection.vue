@@ -56,13 +56,7 @@
 export default {
   methods: {
     routeTo(link) {
-      if(this.userType=='jobSeeker' && link=='/find-work') {
         this.$router.push(link)
-      } else if(this.userType=='recruiter' && link=='/create-jobs') {
-        this.$router.push(link)
-      } else {
-        this.$router.push('/login')
-      }
     }
   },
   computed: {
