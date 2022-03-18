@@ -1,6 +1,6 @@
 <template>
   <div id="app">   
-    <nav class="bg-white navbar navbar-expand-lg navbar-expand-md" style="height: 4.5rem;">
+    <nav class="bg-white navbar navbar-expand-lg navbar-expand-md border-bottom border-light" style="height: 4.5rem;">
       <div class="container">
         <a class="navbar-brand text-dark fw-bold fs-4" href="/"> <i class="fa fa-line-chart me-2 blue-dash"></i><span class="blue-dash">Recruit</span>World</a>
         <p v-if="name" class="m-auto pl-4"> Welcome {{name}} </p> 

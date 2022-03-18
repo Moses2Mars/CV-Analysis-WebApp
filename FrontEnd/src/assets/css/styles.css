@@ -11398,9 +11398,7 @@ html {
   border-radius: 50px 0 14px;
   transition: all .3s ease-in-out;
   transform-origin: bottom right;
-  will-change: opacity;
   background-color: #2196f3;
-  display: none;
 }
 
 .arrow-icon{
@@ -11415,7 +11413,6 @@ html {
 
 .card-hover:hover .trigger-arrow{
   visibility: visible;
-  transition: all .3s ease-in-out;
 }
 
 .text-16{
