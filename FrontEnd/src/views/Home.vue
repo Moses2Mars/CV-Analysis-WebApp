@@ -1,17 +1,27 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome To Our Senior Project Website!"/>
+    <MainSection />
+    <ForEmployersSection/>
+    <HireProfessionalsSection/>
+    <ForJobSeekersSection/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import MainSection from '@/components/MainSection.vue'
+import ForEmployersSection from '@/components/ForEmployersSection.vue'
+import HireProfessionalsSection from '@/components/HireProfessionalsSection.vue'
+import ForJobSeekersSection from '@/components/ForJobSeekersSection.vue'
 export default {
   name: 'Home',
   components: {
-    HelloWorld
-  }
+    MainSection,
+    ForEmployersSection,
+    HireProfessionalsSection,
+    ForJobSeekersSection
+  },
+  methods:{
+  },
 }
 </script>
