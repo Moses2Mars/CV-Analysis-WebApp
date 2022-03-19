@@ -43,7 +43,16 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <textarea name="jobDescription" class="form-control text-area-size" v-model="jobDescription" minlength="50" placeholder="Job Description" required autocomplete="off" ></textarea>
+                    <div 
+                    name="jobDescription" 
+                    contenteditable="true"
+                    class="form-control text-area-size" 
+                    minlength="50" 
+                    placeholder="Job Description" 
+                    required 
+                    autocomplete="off">
+
+                    </div>
                 </div>
             </div>
             <div class="form-group">

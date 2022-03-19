@@ -3,8 +3,9 @@
         <div class="header-section">
             <span class="position"> {{job_info.position_required}} </span>
             <span class="field"> {{job_info.field_required}} </span>
-            <span class="address"> Company Adress Here</span>
-            <button class="btn-post fw-bold apply-btn" @click="applyToJob"> Apply For This Job </button>
+            <span class="company-name"> {{job_info.company_name}}</span>
+            <span class="address"> {{job_info.address}}</span>
+            <button class="btn-post fw-bold apply-btn" @click="applyToJob"> Apply For This Job </button>          
         </div>
         <div class="body">
             {{job_info.job_description}}
@@ -14,6 +15,14 @@
 
 <script>
 export default {
+    components: {
+        LoadingComponent
+    },
+    data() {
+        return {
+            loading: false,
+        }
+    },
     props: {
         job_info: {
             default: null,
@@ -21,30 +30,24 @@ export default {
         },
     },
     methods: {
-        applyToJob() {
+        async applyToJob() {
+            
             if(!this.isLoggedIn)
                 return this.$router.push('/login')
             
-            let request= {
-                email: this.userEmail,
-                job_uuid: this.job_info.uuid,
-            }
-            this.$http.post('apply-for-job', request)
-                .then( () => {
-                    this.$vToastify.success('Applied To Job Successfully')
-                })
-                .catch( (error)=> {
-                    console.error(error)
-                })
+            if(this.userPurpose == 'recruiter')
+                return this.$vToastify.error('Please Login As A Candidate First!')
+                
+            this.$router.push('/apply-to-job/'+this.job_info.uuid)
         }
     },
     computed: {
-        userEmail() {
-            return this.$store.getters['login_module/getEmail']
-        },
         isLoggedIn() {
             return this.$store.getters['login_module/getLoggedInStatus']
         },
+        userPurpose() {
+            return this.$store.getters['login_module/getPurpose']
+        }
     }
 }
 </script>
@@ -58,7 +61,7 @@ export default {
 .header-section {
     display: grid;
     grid-template-columns: 4fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     justify-items: left;
 }
 .position {
@@ -71,9 +74,14 @@ export default {
     grid-row: 2/3;
     margin-left: 40px;
 }
-.address {
+.company-name {
     grid-column: 1/2;
     grid-row: 3/4;
+    margin-left: 40px;   
+}
+.address {
+    grid-column: 1/2;
+    grid-row: 4/5;
     margin-left: 40px;
 }
 .apply-btn {
@@ -88,5 +96,6 @@ export default {
     padding-left: 40px;
     height: 100%;
     text-align: left;
+    margin-bottom: 40px;
 }
 </style>
