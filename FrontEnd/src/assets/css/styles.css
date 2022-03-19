@@ -11408,7 +11408,7 @@ html {
   bottom: 0;
   right: 0;
   border-radius: 50px 0 14px;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   transform-origin: bottom right;
   background-color: #2196f3;
 }

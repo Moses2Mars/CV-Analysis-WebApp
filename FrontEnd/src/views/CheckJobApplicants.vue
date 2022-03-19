@@ -5,12 +5,12 @@
       <LoadingComponent></LoadingComponent>
     </div>
     <div v-else-if="all_job_listings.length">
-      <h5>Search For A Job</h5>
-      <input type="text" placeholder="Search">
+      <label for="search-bar" style="margin-right: 10px; margin-top: 30px;">Search For A Job</label>
+      <input type="text" id="search-bar" placeholder="Search" v-model="search_string">
       <div class="main-grid">
         All Results
         <div class="left-section"> 
-          <div v-for="job in all_job_listings" :key="job.id">
+          <div v-for="job in searchableJobs" :key="job.id">
             <JobCard :job="job" @click.native="getJobApplicants(job)"></JobCard>
           </div>
         </div>
@@ -20,7 +20,7 @@
               {{applicant.user_email}}
             </div>
           </div>
-          <div v-else-if="loading">
+          <div v-else-if="other_loading">
             <LoadingComponent></LoadingComponent>         
           </div>
           <div v-else>
@@ -48,33 +48,41 @@ export default {
       all_job_listings: [],
       job_applicants: [],
       loading: false,
+      other_loading: false,
+      search_string: '',
     }
   },
   methods: {
-    getAllJobListings() {
+    async getAllJobListings() {
       this.loading = true
-        this.$http.get(`get-job-listings/${this.companyId}`)
+        await this.$http.get(`get-job-listings/${this.companyId}`)
         .then((response)=> {
+          console.log('response', response.data)
           this.all_job_listings = response.data
         })
       this.loading = false
     },
-    getJobApplicants(job){
-      this.loading = true
+    async getJobApplicants(job){
+      this.other_loading = true
       //get info from job_applications database
-      this.$http.get(`get-job-applicants/${job.uuid}`)
+      await this.$http.get(`get-job-applicants/${job.uuid}`)
           .then( (response) => {
               this.job_applicants = response.data
           }).catch( (error)=> {
               console.error(error)
           })
-      this.loading = false
+      this.other_loading = false
     }
   },
   computed: {
     companyId() {
       return this.$store.getters['login_module/getUserID']
-    }
+    },
+    searchableJobs() {
+      return this.all_job_listings.filter(job => {
+        return job.position_required.toLowerCase().includes(this.search_string.toLowerCase()) || job.field_required.toLowerCase().includes(this.search_string.toLowerCase())
+      })
+    },
   },
   mounted() {
     this.getAllJobListings();
@@ -94,7 +102,7 @@ h1 {
   margin: 20px;
   padding: 20px;
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 2fr;
   grid-template-rows: 0.1fr 10fr;
   background-color: rgb(228, 228, 228);
   border-radius: 5px;
@@ -104,6 +112,29 @@ h1 {
   grid-row: 2/3;
   display: flex;
   flex-direction: column;
+  height: 600px;
+  overflow: auto;
+}
+.left-section::-webkit-scrollbar-track
+{
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.left-section::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+.left-section::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
 }
 .right-section {
   grid-column: 2/3;

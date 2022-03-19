@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\JobListings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -48,7 +49,12 @@ class JobListingsController extends Controller
     }
 
     public function getAllRunningJobs() {
-        return JobListings::where('release_date', '<=', date('Y-m-d'))->where('expiry_date', '>', date('Y-m-d'))->get();
+        $job_listings = JobListings::where('release_date', '<=', date('Y-m-d'))->where('expiry_date', '>', date('Y-m-d'))->get();
+        foreach($job_listings as $job_listing){
+            $company = Company::where('company_name', $job_listing->company_name)->first();
+            $job_listing['address'] = $company->country . ', '.$company->address;
+        }
+        return $job_listings;
     }
 
     public function getJobListingsFromUUID($uuid) {
