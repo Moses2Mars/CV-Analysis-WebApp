@@ -5,17 +5,15 @@
             <span class="field"> {{job_info.field_required}} </span>
             <span class="company-name"> {{job_info.company_name}}</span>
             <span class="address"> {{job_info.address}}</span>
-            <button class="btn-post fw-bold apply-btn" @click="applyToJob" v-if="!loading"> Apply For This Job </button>          
+            <button class="btn-post fw-bold apply-btn" @click="applyToJob"> Apply For This Job </button>          
         </div>
-        <div class="body" v-if="!loading">
+        <div class="body">
             {{job_info.job_description}}
         </div>
-        <LoadingComponent v-else style="margin: auto"></LoadingComponent>
     </div>
 </template>
 
 <script>
-import LoadingComponent from '@/components/LoadingComponent.vue'
 export default {
     components: {
         LoadingComponent
