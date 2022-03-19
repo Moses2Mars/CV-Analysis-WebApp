@@ -13,6 +13,7 @@ class JobApplicationApiController extends Controller
     }
 
     public function addJobApplicant(Request $request) {
+        dd($request->job_uuid);
         $has_applied = JobApplication::where(['user_email'=> $request->email, 'job_uuid'=> $request->job_uuid])->first();
 
         if(isset($has_applied)) 

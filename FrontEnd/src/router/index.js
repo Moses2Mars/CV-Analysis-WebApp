@@ -7,7 +7,7 @@ import FindWork from '../views/FindWork.vue'
 import CheckJobApplicants from '../views/CheckJobApplicants.vue'
 import CreateJobs from '../views/CreateJobs.vue'
 import ApplyToJob from '../views/ApplyToJob.vue'
-
+import { store } from '../store/index.js';
 Vue.use(VueRouter)
 
 const routes = [
@@ -30,13 +30,11 @@ const routes = [
     path: '/find-work',
     name: 'FindWork',
     component: FindWork,
-    meta: { requiresAuth: true },
   },
   {
     path: '/create-jobs',
     name: 'CreateJobs',
     component: CreateJobs,
-    meta: { requiresAuth: true },
   },
   {
     path: '/check-job-applicants',
@@ -53,10 +51,19 @@ const routes = [
   { path: '*', redirect: '/' }
 ]
 
+const isLoggedIn = store.getters['login_module/getLoggedInStatus']
+
+
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !isLoggedIn) next({ name: 'Login' })
+  else next()
 })
 
 export default router

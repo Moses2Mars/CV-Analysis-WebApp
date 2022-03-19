@@ -49,7 +49,7 @@ export default {
   methods: {
     async getAllRunningJobs() {
       this.loading = true;
-      this.$http.get('get-running-jobs')
+      await this.$http.get('get-running-jobs')
           .then( (response)=> {
             this.running_jobs = response.data
           }).catch( (error)=> {

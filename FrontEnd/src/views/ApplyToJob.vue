@@ -16,21 +16,22 @@
                 Upload your resume to get started
                 </p>
             </div>
+            <form v-on:submit.prevent="applyForJob()" method="POST" enctype="multipart/form-data">
+              <div class="devfile">
+                  <label style="width: 100%;">
+                    <input class="input" type="file" id="file" ref="file" v-on:change="handleFileUpload($event)" accept="application/pdf,application/msword,
+                    application/vnd.openxmlformats-officedocument.wordprocessingml.document" required/>
+                  </label>
+              </div>
 
-            <div class="devfile">
-                <label>
-                <input class="input" type="file" id="file" ref="file" v-on:change="handleFileUpload()" />
-                </label>
-            </div>
+              <div class="types">
+                  <span style="justify-content: center">as .pdf or .docx file</span>
+              </div>
 
-            <div class="types">
-                <span style="justify-content: center">as .pdf or .docx file</span>
-            </div>
-
-            <div>
-                <button class="btnLocation" v-on:click="applyForJob()">Submit</button>
-            </div>
-
+              <div>
+                  <button class="btnLocation" v-on:submit.prevent="applyForJob()">Submit</button>
+              </div>
+            </form>
         </div>
     </div>
 </template>
@@ -39,22 +40,27 @@ export default {
     data() {
         return {
             loading: false,
+            selected_file: undefined,
             job_uuid: this.$route.params.uuid,
         }
     },
     methods: {
-        handleFileUpload() {
-            this.$vToastify.error('Work In Progress')
+        handleFileUpload(event) {
+          this.selected_file = event.target.files[0]
         },
         async applyForJob() {
             this.loading = true
-
-            let request= {
-                email: this.userEmail,
-                job_uuid: this.job_uuid,
-            }
-
-            await this.$http.post('apply-for-job', request)
+            
+            const formData = new FormData();
+            formData.append('email', this.userEmail)
+            formData.append('job_uuid', this.job_uuid)
+            formData.append('file', this.selected_file);
+            console.log('form data', formData)
+            await this.$http.post('apply-for-job', formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+                  }
+              })
                 .then( () => {
                     this.$vToastify.success('Applied To Job Successfully')
                 })
@@ -126,12 +132,6 @@ footer {
 
 .types {
   margin-top: 3%;
-}
-.devfile {
-  margin-top: 5%;
-  width: 50%;
-  align-items: center;
-  align-content: center;
 }
 .btnLocation {
   margin-top: 20%;
