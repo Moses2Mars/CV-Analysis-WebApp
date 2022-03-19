@@ -40,22 +40,7 @@ export default {
             if(this.userPurpose == 'recruiter')
                 return this.$vToastify.error('Please Login As A Candidate First!')
                 
-            this.loading = true
-
-            let request= {
-                email: this.userEmail,
-                job_uuid: this.job_info.uuid,
-            }
-            await this.$http.post('apply-for-job', request)
-                .then( () => {
-                    this.$vToastify.success('Applied To Job Successfully')
-                })
-                .catch( (error)=> {
-                    if(error.response.status == 512)
-                        return this.$vToastify.error('You Have Already Applied To This Job!')
-                    this.$vToastify.error('Something Went Wrong!')
-                })
-            this.loading = false
+            this.$router.push('/apply-to-job/'+this.job_info.uuid)
         }
     },
     computed: {

@@ -6,6 +6,7 @@ import Register from '../views/Register.vue'
 import FindWork from '../views/FindWork.vue'
 import CheckJobApplicants from '../views/CheckJobApplicants.vue'
 import CreateJobs from '../views/CreateJobs.vue'
+import ApplyToJob from '../views/ApplyToJob.vue'
 
 Vue.use(VueRouter)
 
@@ -41,6 +42,12 @@ const routes = [
     path: '/check-job-applicants',
     name: 'CheckJobApplicants',
     component: CheckJobApplicants,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/apply-to-job/:uuid',
+    name: 'ApplyToJob',
+    component: ApplyToJob,
     meta: { requiresAuth: true },
   },
   { path: '*', redirect: '/' }
