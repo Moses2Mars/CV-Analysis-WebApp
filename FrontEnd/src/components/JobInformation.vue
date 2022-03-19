@@ -44,9 +44,6 @@ export default {
         }
     },
     computed: {
-        userEmail() {
-            return this.$store.getters['login_module/getEmail']
-        },
         isLoggedIn() {
             return this.$store.getters['login_module/getLoggedInStatus']
         },

@@ -65,6 +65,11 @@ export default {
                 })
             this.loading = false
         }
+    },
+    computed: {
+        userEmail() {
+            return this.$store.getters['login_module/getEmail']
+        },
     }
 }
 </script>
