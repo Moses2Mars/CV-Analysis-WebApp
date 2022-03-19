@@ -5,11 +5,10 @@
       <LoadingComponent></LoadingComponent>
     </div>
     <div v-else-if="running_jobs.length">
-      <label for="search-bar" style="margin-right: 10px; margin-top: 30px;">Search For A Job</label>
-      <input type="text" id="search-bar" placeholder="Search" v-model="search_string">
       <div class="main-grid">
-        All Results
         <div class="left-section"> 
+          <label for="search-bar" style="margin-right: 10px; margin-top: 30px;">Search For A Job</label>
+          <input type="text" id="search-bar" placeholder="Search" class="search-bar" v-model="search_string">
           <div v-for="job in searchableJobs" :key="job.id">
             <JobCard :job="job" :is_candidate="true" @click.native="setClickedJob(job)"></JobCard>
           </div>
@@ -129,5 +128,34 @@ h1 {
   margin: 30px;
   background-color: rgb(255, 255, 255);
   border-radius: 3px;
+  height: 600px;
+  overflow: auto;
+}
+
+.right-section::-webkit-scrollbar-track
+{
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.right-section::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+.right-section::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+.search-bar {
+  width: 50%; 
+  margin-left: auto; 
+  margin-right: auto;
 }
 </style>

@@ -116,5 +116,6 @@ export default {
     padding-left: 40px;
     height: 100%;
     text-align: left;
+    margin-bottom: 40px;
 }
 </style>
