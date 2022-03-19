@@ -6,12 +6,15 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
     public function createJobSeeker(Request $request) {
+        
         //if $request->purpose="jobSeeker"
         $user = new User;
+        $user->image_path = env('PROJECT_DIR').'/'.$request->file('image')->store('/public/img');
         $user->first_name = $request->firstName;
         $user->last_name = $request->lastName;
         $user->user_email = $request->email;
@@ -34,6 +37,7 @@ class UserController extends Controller
     public function createRecruiter(Request $request) {
         //if $request->purpose="recruiter"
         $user = new Company();
+        $user->image_path = $request->file('image')->store('/public/images');
         $user->company_name = $request->companyName;
         $user->company_email = $request->email;
         $user->country = $request->country;

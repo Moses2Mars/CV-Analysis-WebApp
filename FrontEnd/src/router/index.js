@@ -51,7 +51,7 @@ const routes = [
   { path: '*', redirect: '/' }
 ]
 
-const isLoggedIn = store.getters['login_module/getLoggedInStatus']
+
 
 
 
@@ -62,6 +62,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  const isLoggedIn = store.getters['login_module/getLoggedInStatus']
   if (to.meta.requiresAuth && !isLoggedIn) next({ name: 'Login' })
   else next()
 })

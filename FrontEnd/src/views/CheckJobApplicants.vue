@@ -17,7 +17,13 @@
         <div class="right-section">
           <div v-if="job_applicants.length">
             <div v-for="applicant in job_applicants" :key="applicant.id">
+              {{applicant.first_name}}
+              {{applicant.last_name}}
               {{applicant.user_email}}
+              {{applicant.birth_date}}
+              <!-- <img src="../../../BackEnd/public/image/public/images/Fi7xD5MxgxO48nXbgAeOnNONJgN81dQM1LbZAMaB.jpg" style="max-width: 100px"> -->
+              <img src='/storage/img/FtiqXszDshloMaEHp0K3xCCBxmEeZ18ABmwO3rdP.jpg' style="max-width: 100px">
+              {{applicant.image_path}}
             </div>
           </div>
           <div v-else-if="other_loading">

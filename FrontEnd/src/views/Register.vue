@@ -6,7 +6,7 @@
       <div class="form-group m-3">
         <label for='address' class="col-sm-3 control-label" style="font-size: 1.6rem;">User Purpose: </label>
           <div class="col-sm-9 col-md-4 m-auto">
-            <select class="form-select" name='purpose' id='purpose' @change='setPurpose($event)' required>
+            <select class="form-select" name='purpose' id='purpose' @change='setPurpose($event)'>
               <option disabled selected value class="text-center"> -- select an option -- </option>
               <option value='jobSeeker' class="text-center">Looking For A Job</option>
               <option value='recruiter' class="text-center">Looking To Recruit Candidates</option>
@@ -24,6 +24,15 @@
           <label class="col-sm-3 control-label" style="font-size: 1.6rem;">Last Name</label>
           <div class="col-sm-9 col-md-4 m-auto">
               <input type="text" id="lastName" v-model='lastName' class="text-center form-control m-auto" autofocus autocomplete="off" >
+          </div>
+      </div>
+      <div class="form-group m-3">
+          <label class="col-sm-3 control-label" style="font-size: 1.6rem;">
+            <span v-if="this.purpose == 'recruiter'">Company Logo </span>
+            <span v-else> Image Of Yourself</span>     
+          </label>
+          <div class="col-sm-9 col-md-4 m-auto">
+              <input class="input" type="file" id="file" ref="file" v-on:change="handleFileUpload($event)" accept="image/*" autofocus/>   
           </div>
       </div>
       <div class="form-group m-3" v-if="this.purpose == 'recruiter'">
@@ -47,7 +56,7 @@
       <div class="form-group m-3">
         <label for='country' class="col-sm-3 control-label" style="font-size: 1.6rem;">Country: </label>
           <div class="col-sm-9 col-md-4 m-auto">
-            <select class="form-select" name='country' id='country' @change='setCountry($event)' required>
+            <select class="form-select" name='country' id='country' @change='setCountry($event)'>
               <option disabled selected value class="text-center"> -- select an option -- </option>
               <option v-for="country in all_countries" :key="country.id" :value="country.country" class="text-center">
                 {{country.country}}
@@ -70,7 +79,7 @@
       <div class="form-group m-3" v-if="this.purpose == 'jobSeeker'">
           <label for="field" class="col-sm-3 control-label" style="font-size: 1.6rem;">Field </label>
           <div class="col-sm-9 col-md-4 m-auto">
-            <select class="form-select" name='field' id='field' @change='setJobField($event)' required>
+            <select class="form-select" name='field' id='field' @change='setJobField($event)'>
               <option disabled selected value class="text-center"> -- select an option -- </option>
               <option v-for="job_field in all_job_fields" :key="job_field.id" :value='job_field.field' class="text-center">
                 {{job_field.field}}
@@ -129,9 +138,13 @@ export default {
       yearsOfExperience: null,
       all_countries: [],
       all_job_fields: [],
+      selected_file: undefined,
     }
   },
   methods: {
+    handleFileUpload(event) {
+      this.selected_file = event.target.files[0]
+    },
     setPurpose(e){
       this.purpose = e.target.value
     },
@@ -149,18 +162,21 @@ export default {
     },
     registerUser(){
       //checks if the email format is correct and if passwords match
-      if(!this.validateEmail()) return;
-      if(!this.validatePassword()) return;
-
+/*       if(!this.validateEmail()) return;
+      if(!this.validatePassword()) return; */
       //set the values to be sent to the backend
       let request = this.setRequest()
 
       //if purpose is recruiter -> send info to companies table
-      this.$http.post(`/create-user/${this.purpose}`, request)
+      this.$http.post(`/create-user/${this.purpose}`, request,{
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
         .then( ()=> {
           this.$vToastify.success("Registration Successfull!");
           //after finishing everything, push the user back to the login page.
-          this.$router.push('/Login')
+          /* this.$router.push('/Login') */
         }).catch((error)=>{
           this.$vToastify.error("Oops... Something Went Wrong!");
           console.error(error)
@@ -186,28 +202,30 @@ export default {
     },
     setRequest(){
       //if jobSeeker, no need for companyName, field and yearsofexperience, birthDate
-      if(this.purpose=='jobSeeker') 
-        return {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          password: this.password,
-          birthDate: this.birthDate,
-          address: this.address,
-          phoneNumber: this.phoneNumber,
-          jobField: this.jobField,
-          country: this.country,
-          yearsOfExperience: this.yearsOfExperience,
-        }
-        
-        return {
-          email: this.email,
-          password: this.password,
-          address: this.address,
-          phoneNumber: this.phoneNumber,
-          companyName: this.companyName,
-          country: this.country,
-        }
+      const formData = new FormData();
+
+      if(this.purpose=='jobSeeker') {
+        formData.append('firstName', this.firstName)
+        formData.append('lastName', this.lastName)
+        formData.append('email', this.email);
+        formData.append('password', this.password)
+        formData.append('birthDate', this.birthDate)
+        formData.append('address', this.address);
+        formData.append('phoneNumber', this.phoneNumber)
+        formData.append('jobField', this.jobField)
+        formData.append('country', this.country);
+        formData.append('yearsOfExperience', this.yearsOfExperience);
+        formData.append('image', this.selected_file);
+        return formData;
+      }
+        formData.append('email', this.email)
+        formData.append('password', this.password);
+        formData.append('address', this.address)
+        formData.append('phoneNumber', this.phoneNumber)
+        formData.append('companyName', this.country);
+        formData.append('country', this.companyName);
+        formData.append('image', this.country);
+        return formData
     },
   },
   mounted () {

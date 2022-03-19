@@ -32,5 +32,4 @@ Route::get('get-running-jobs', [JobListingsController::class, 'getAllRunningJobs
 Route::get('get-job/{uuid}', [JobListingsController::class, 'getJobListingsFromUUID']);
 Route::get('get-job-applicants/{job_uuid}', [JobApplicationApiController::class, 'getJobApplicationsFromUUID']);
 Route::post('apply-for-job', [JobApplicationApiController::class, 'addJobApplicant']);
-
 Route::post('/login', [UserController::class, 'login']);
