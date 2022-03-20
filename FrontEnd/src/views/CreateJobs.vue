@@ -44,19 +44,22 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div 
+                    ref="jobDescription"
                     name="jobDescription" 
                     contenteditable="true"
-                    class="form-control text-area-size" 
+                    class="form-control text-area" 
                     minlength="50" 
                     placeholder="Job Description" 
-                    required 
+                    required
+                    @input="onInput"
                     autocomplete="off">
 
                     </div>
                 </div>
             </div>
             <div class="form-group">
-              <input type="submit" name="btnSubmit" class="btn btn-primary btn-lg" value="Create Job" />
+              <input type="submit" name="btnSubmit" class="btn btn-primary btn-lg" value="Create Job" v-if="!loading" />
+              <LoadingComponent v-else></LoadingComponent>
             </div>
         </div>
     </form>
@@ -64,7 +67,9 @@
 </template>
 
 <style scoped>
-.text-area-size {
+.text-area {
+  text-align: left;
+  overflow: auto;
   width: 100%; 
   height: 41em;
   min-height: 17rem; 
@@ -73,7 +78,9 @@
 </style>
 
 <script>
+import LoadingComponent from '../components/LoadingComponent.vue'
 export default {
+  components: { LoadingComponent },
   data() {
     return {
       all_job_fields: [],
@@ -84,16 +91,20 @@ export default {
       minExperience: null,
       jobDescription: '',
       applicantsNeeded: null,
+      loading: false,
     }
   },
   methods: {
+    onInput(e) {
+      this.jobDescription= e.target.innerText;
+    },
     setAllJobFields(){
       this.all_job_fields = this.$store.getters['getAllJobFields']
     },
     setJobField(e) {
       this.jobField = e.target.value
     },
-    createJob() {
+    async createJob() {
       if(!this.isLoggedIn)
         return this.$router.push('/login')
 
@@ -110,7 +121,7 @@ export default {
         jobDescription: this.jobDescription, 
       }
       
-      this.$http.post('create-job-listing', request)
+      await this.$http.post('create-job-listing', request)
           .then( ()=> {
             this.$vToastify.success('Job Created Successfully!')
             this.resetFields()
@@ -126,7 +137,7 @@ export default {
         this.releaseDate= undefined
         this.expiryDate= undefined
         this.minExperience= null
-        this.jobDescription= ''
+        this.$refs.jobDescription. innerHTML = ''
         this.applicantsNeeded= null
     },
   },

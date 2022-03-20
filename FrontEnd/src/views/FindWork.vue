@@ -29,7 +29,7 @@
 
 <script>
 import JobCard from '@/components/cardComponents/JobCard.vue'
-import JobInformation from '@/components/JobInformation.vue'
+import JobInformation from '@/components/cardComponents/JobInformation.vue'
 import LoadingComponent from '@/components/LoadingComponent.vue'
 export default {
   components: {
@@ -49,7 +49,7 @@ export default {
   methods: {
     async getAllRunningJobs() {
       this.loading = true;
-      this.$http.get('get-running-jobs')
+      await this.$http.get('get-running-jobs')
           .then( (response)=> {
             this.running_jobs = response.data
           }).catch( (error)=> {

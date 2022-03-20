@@ -11,20 +11,20 @@
         All Results
         <div class="left-section"> 
           <div v-for="job in searchableJobs" :key="job.id">
-            <JobCard :job="job" @click.native="getJobApplicants(job)"></JobCard>
+            <JobCard :job="job" @click.native="getJobCandidates(job)"></JobCard>
           </div>
         </div>
         <div class="right-section">
-          <div v-if="job_applicants.length">
-            <div v-for="applicant in job_applicants" :key="applicant.id">
-              {{applicant.user_email}}
+          <div v-if="job_candidates.length">
+            <div v-for="candidate in job_candidates" :key="candidate.id">
+              <CandidateCard :candidate="candidate"> </CandidateCard>
             </div>
           </div>
           <div v-else-if="other_loading">
             <LoadingComponent></LoadingComponent>         
           </div>
           <div v-else>
-            No Applicants Have Applied So Far
+            No Candidates Have Applied So Far
           </div>
         </div>
       </div>
@@ -38,15 +38,17 @@
 <script>
 import JobCard from '@/components/cardComponents/JobCard.vue'
 import LoadingComponent from '@/components/LoadingComponent.vue'
+import CandidateCard from '@/components/cardComponents/CandidateCard.vue'
 export default {
   components: {
     JobCard,
     LoadingComponent,
+    CandidateCard,
   },
   data () {
     return {
       all_job_listings: [],
-      job_applicants: [],
+      job_candidates: [],
       loading: false,
       other_loading: false,
       search_string: '',
@@ -62,12 +64,12 @@ export default {
         })
       this.loading = false
     },
-    async getJobApplicants(job){
+    async getJobCandidates(job){
       this.other_loading = true
       //get info from job_applications database
       await this.$http.get(`get-job-applicants/${job.uuid}`)
           .then( (response) => {
-              this.job_applicants = response.data
+              this.job_candidates = response.data
           }).catch( (error)=> {
               console.error(error)
           })

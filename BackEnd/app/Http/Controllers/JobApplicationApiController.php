@@ -4,12 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\JobApplication;
 use App\Models\JobListings;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class JobApplicationApiController extends Controller
 {
     public function getJobApplicationsFromUUID($job_uuid) {
-        return JobApplication::where('job_uuid', $job_uuid)->get();
+        $array = array();
+        $job_applicants = JobApplication::where('job_uuid', $job_uuid)->get();
+        foreach($job_applicants as $job_applicant) {
+            $user = User::where('user_email', $job_applicant->user_email)->first();
+            array_push($array, $user);
+        }
+        return $array;
     }
 
     public function addJobApplicant(Request $request) {

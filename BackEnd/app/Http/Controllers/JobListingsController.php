@@ -53,6 +53,7 @@ class JobListingsController extends Controller
         foreach($job_listings as $job_listing){
             $company = Company::where('company_name', $job_listing->company_name)->first();
             $job_listing['address'] = $company->country . ', '.$company->address;
+            $job_listing['company_logo'] = $company->image_path;
         }
         return $job_listings;
     }

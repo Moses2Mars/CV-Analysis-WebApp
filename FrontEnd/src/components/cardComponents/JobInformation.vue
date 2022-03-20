@@ -1,6 +1,7 @@
 <template>
-    <div class="main-section">
+    <div class="job-info-grid">
         <div class="header-section">
+            <img :src="require('../../'+job_info.company_logo)" class="company-image">
             <span class="position"> {{job_info.position_required}} </span>
             <span class="field"> {{job_info.field_required}} </span>
             <span class="company-name"> {{job_info.company_name}}</span>
@@ -45,39 +46,51 @@ export default {
 </script>
 
 <style scoped>
-.main-section {
+.job-info-grid {
     display: flex;
     flex-direction: column;
     margin-top: 40px;
 }
 .header-section {
+    margin-left: 3%;
     display: grid;
-    grid-template-columns: 4fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     justify-items: left;
 }
-.position {
+.company-image {
+    object-fit: contain;
     grid-column: 1/2;
+    grid-row: 1/5;
+    width: 100%; 
+    height: 100%;
+    aspect-ratio: 1/1;
+    justify-self: center;
+    align-self: center;
+    border-radius: 20%;
+}
+.position {
+    grid-column: 2/3;
     grid-row: 1/2;
     margin-left: 40px;
 }
 .field {
-    grid-column: 1/2;
+    grid-column: 2/3;
     grid-row: 2/3;
     margin-left: 40px;
 }
 .company-name {
-    grid-column: 1/2;
+    grid-column: 2/3;
     grid-row: 3/4;
     margin-left: 40px;   
 }
 .address {
-    grid-column: 1/2;
+    grid-column: 2/3;
     grid-row: 4/5;
     margin-left: 40px;
 }
 .apply-btn {
-    grid-column: 2/3;
+    grid-column: 3/4;
     grid-row: 2/4;
     margin-right: 40px;
 }

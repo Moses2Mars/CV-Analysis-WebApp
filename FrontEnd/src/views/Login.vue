@@ -49,10 +49,10 @@ export default {
     };
   },
   methods: {
-    loginUser() {
+    async loginUser() {
       //we use store because we can use Vuex Persisted State to keep user logged in on refresh
       this.loading = true
-      this.$store.dispatch('login_module/authenticate', this.user)
+      await this.$store.dispatch('login_module/authenticate', this.user)
           .then( () => {
               this.loading = false
               this.$vToastify.success('Login Successful!')
