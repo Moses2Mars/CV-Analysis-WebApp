@@ -240,9 +240,9 @@ export default {
         formData.append('password', this.password);
         formData.append('address', this.address)
         formData.append('phoneNumber', this.phoneNumber)
-        formData.append('companyName', this.country);
-        formData.append('country', this.companyName);
-        formData.append('image', this.country);
+        formData.append('companyName', this.companyName);
+        formData.append('country', this.country);
+        formData.append('image', this.selected_file);
         return formData
     },
   },
