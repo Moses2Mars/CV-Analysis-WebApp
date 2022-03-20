@@ -21,7 +21,5 @@ export default {
     HireProfessionalsSection,
     ForJobSeekersSection
   },
-  methods:{
-  },
 }
 </script>

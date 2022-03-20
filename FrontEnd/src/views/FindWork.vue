@@ -29,7 +29,7 @@
 
 <script>
 import JobCard from '@/components/cardComponents/JobCard.vue'
-import JobInformation from '@/components/JobInformation.vue'
+import JobInformation from '@/components/cardComponents/JobInformation.vue'
 import LoadingComponent from '@/components/LoadingComponent.vue'
 export default {
   components: {
