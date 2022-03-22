@@ -104,7 +104,7 @@
 
 <style scoped>
 .register-background {
-  background-color: rgb(255, 110, 110);
+  background-color: #2196F3;
   color: black;
   border-radius: 40px;
 }
