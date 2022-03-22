@@ -1,5 +1,5 @@
 <template>
-    <section id="scroll3">
+    <section id="scroll3" class="mb-5">
         <div class="container px-5">
             <div class="row pt-5 align-items-center">
                 <div class="col-lg-12 text-center">

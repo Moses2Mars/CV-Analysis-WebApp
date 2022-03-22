@@ -113,9 +113,7 @@
 
 <style scoped>
 .register-background {
-  background: #53b1fd;
-  background: -webkit-linear-gradient(to right, #53b1fd, #4baeff);
-  background: linear-gradient(to right, #53b1fd, #4baeff);
+  background-color: #2196F3;
   color: black;
   border-radius: 40px;
 }
