@@ -15,34 +15,36 @@
             </div>
           </div>
 
-        <div class="row">
-          <div class="col-12">
-            <div class="pt-5">
-              <div class="text-dark pt-5 fs-3">
-                The job marketplace and community that connects and matches companies with remote professionals using<span class="blue-dash"> personality prediction system</span>.
+          <div class="row">
+            <div class="col-12">
+              <div class="pt-5">
+                <div class="text-dark pt-5 fs-3">
+                  The job marketplace and community that connects and matches companies with remote professionals using<span class="blue-dash"> personality prediction system</span>.
+                </div>
               </div>
             </div>
           </div>
-      </div>
 
-      <div class="row">
-        <div class="col-5 text-center align-center">
-          <div class="d-flex justify-content-end"> 
-            <button class="btn-post my-5 ms-5 fw-bold" @click="routeTo('/create-jobs')">
-              Post Jobs
-            </button>
-          </div>
-        </div>
-        <div class="col-2 text-dark pt-5">
-          <div class="pt-2"> 
-            or
-          </div>
-        </div>
-        <div class="col-5 text-center">
-          <div class="d-flex justify-content-start">
-            <button class="btn-find my-5 fw-bold" @click="routeTo('/find-work')">
-              Find Work
-            </button>
+          <div class="row">
+            <div class="col-5 text-center align-center">
+              <div class="d-flex justify-content-end"> 
+                <button class="btn-post my-5 ms-5 fw-bold" @click="routeTo('/create-jobs')">
+                  Post Jobs
+                </button>
+              </div>
+            </div>
+            <div class="col-2 text-dark pt-5">
+              <div class="pt-2"> 
+                or
+              </div>
+            </div>
+            <div class="col-5 text-center">
+              <div class="d-flex justify-content-start">
+                <button class="btn-find my-5 fw-bold" @click="routeTo('/find-work')">
+                  Find Work
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
