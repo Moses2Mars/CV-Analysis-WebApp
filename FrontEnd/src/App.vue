@@ -21,6 +21,9 @@
                 <li class="nav-item mt-2 link-style">
                   <router-link to="/" class="nav-link text-dark fw-bold">Help Center</router-link>
                 </li>
+                <li class="nav-item mt-2 link-style">
+                  <router-link to="/" class="nav-link text-dark fw-bold">About Us</router-link>
+                </li>
                 <li class="nav-item" v-if="!isLoggedIn">
                     <router-link to="/login" class="nav-link smoothScroll text-dark">
                       <button class="btn-login fw-bold blue-dash ms-5">
@@ -63,6 +66,7 @@
 @import '../src/assets/css/styles.css';
 @import "https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900";
 @import "https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i";
+
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

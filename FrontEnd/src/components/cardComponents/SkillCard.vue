@@ -22,7 +22,7 @@
         </a>
     </div>
 </template>
-
+<script src="https://kit.fontawesome.com/e76fe25903.js" crossorigin="anonymous"></script>
 <script>
 export default {
     props: {
