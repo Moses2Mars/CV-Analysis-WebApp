@@ -11380,9 +11380,18 @@ html {
   color: white;
 }
 
-.section-bg-light-blue{
+.section-bg-light-blue-666{
   background-color: #F0F6FA;
   height: 666px;
+}
+
+.section-bg-light-blue-500{
+  background-color: #F0F6FA;
+  height: 580px;
+}
+
+li::marker{
+  color:#13653f;
 }
 
 .skills-icon{
@@ -11421,6 +11430,11 @@ font-size: 16px;
 
 .text-gray-20{
   font-size: 20px;
+  color: gray;
+}
+
+.text-gray-18{
+  font-size: 18px;
   color: gray;
 }
 

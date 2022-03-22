@@ -54,6 +54,8 @@
     <GoalSection/>
     <AfterSection style="margin-top: 50px;"/>
     <ForJobSeekersSection/>
+    <JobSeekersAfter/>
+    <AboutUsSection/>
   </div>
 </template>
 
@@ -61,12 +63,16 @@
 import GoalSection from './GoalSection.vue'
 import AfterSection from './AfterSection.vue'
 import ForJobSeekersSection from './ForJobSeekersSection.vue'
+import JobSeekersAfter from './JobSeekersAfter.vue'
+import AboutUsSection from './AboutUsSection.vue'
 export default {
   name: "HelloWorld",
   components: {
     GoalSection,
     AfterSection,
-    ForJobSeekersSection
+    ForJobSeekersSection,
+    JobSeekersAfter,
+    AboutUsSection
   },
   methods: {
     routeTo(link) {

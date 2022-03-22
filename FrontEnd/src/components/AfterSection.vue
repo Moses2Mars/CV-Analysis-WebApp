@@ -1,5 +1,5 @@
 <template>
-    <section id="scroll2" class="section-bg-light-blue">
+    <section id="scroll2" class="section-bg-light-blue-666">
         <div class="container px-5">
             <div class="row pt-5">
                 <div class="col-lg-12">
