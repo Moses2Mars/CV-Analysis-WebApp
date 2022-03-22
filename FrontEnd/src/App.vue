@@ -12,17 +12,14 @@
                 <li class="nav-item mt-2 link-style">
                   <router-link to="/find-work" class="nav-link text-dark fw-bold">Find Work</router-link>
                 </li>
-<!--                  <li class="nav-item mt-2">
-                  <router-link to="/" class="nav-link text-dark fw-bold">Companies</router-link>
-                </li> -->
                 <li class="nav-item mt-2 link-style" v-if="userType=='recruiter'">
                   <router-link to="/check-job-applicants" class="nav-link text-dark fw-bold">Check Job Applicants </router-link>
                 </li>
                 <li class="nav-item mt-2 link-style">
-                  <router-link to="/" class="nav-link text-dark fw-bold">Help Center</router-link>
+                  <router-link to="/#help-section" class="nav-link text-dark fw-bold">Help Center</router-link>
                 </li>
                 <li class="nav-item mt-2 link-style">
-                  <router-link to="/" class="nav-link text-dark fw-bold">About Us</router-link>
+                  <router-link to="/#about-us" class="nav-link text-dark fw-bold">About Us</router-link>
                 </li>
                 <li class="nav-item" v-if="!isLoggedIn">
                     <router-link to="/login" class="nav-link smoothScroll text-dark">
@@ -49,7 +46,7 @@
         </div>
       </div>
     </nav>
-  <router-view class="mb-5" />
+  <router-view  :key='$route.fullPath' class="mb-5" />
   <footer class="py-5 bg-black mt-5">
       <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; AUST Senior Project 2021-2022</p></div>
   </footer>

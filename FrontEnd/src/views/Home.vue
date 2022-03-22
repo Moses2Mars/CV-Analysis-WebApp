@@ -4,8 +4,8 @@
     <ForEmployersSection/>
     <HireProfessionalsSection/>
     <ForJobSeekersSection/>
-    <JobSeekersAfter/>
-    <AboutUsSection/>  
+    <JobSeekersAfter id="help-section"/>
+    <AboutUsSection id="about-us"/>  
   </div>
 </template>
 
@@ -26,6 +26,11 @@ export default {
     ForJobSeekersSection,
     JobSeekersAfter,
     AboutUsSection,
+  },
+  mounted() {
+      var section=this.$router.currentRoute.hash.replace("#", "");
+      if (section)
+          this.$nextTick(()=> window.document.getElementById(section).scrollIntoView());
   },
 }
 </script>
