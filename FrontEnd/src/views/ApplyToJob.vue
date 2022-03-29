@@ -42,6 +42,7 @@ export default {
             loading: false,
             selected_file: undefined,
             job_uuid: this.$route.params.uuid,
+            job_description: '',
         }
     },
     methods: {
@@ -50,13 +51,13 @@ export default {
         },
         async applyForJob() {
             this.loading = true
-            
+            await this.getJobDescription()
             const formData = new FormData();
             formData.append('email', this.userEmail)
             formData.append('job_uuid', this.job_uuid)
+            formData.append('job_description', this.job_description)
             formData.append('file', this.selected_file);
-            console.log('form data', formData)
-            await this.$http.post('apply-for-job', formData, {
+            await this.$http.post('http://127.0.0.1:5000/cv-form', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
                   }
@@ -70,6 +71,15 @@ export default {
                     this.$vToastify.error('Something Went Wrong!')
                 })
             this.loading = false
+        },
+        async getJobDescription(){
+          return await this.$http.get(`get-job/${this.job_uuid}`)
+                .then( (response) => {
+                  this.job_description = response.data.job_description
+                })
+                .catch( (error)=> {
+                  console.error(error)
+                })
         }
     },
     computed: {
