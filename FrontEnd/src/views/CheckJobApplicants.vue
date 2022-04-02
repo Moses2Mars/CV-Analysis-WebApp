@@ -59,7 +59,6 @@ export default {
       this.loading = true
         await this.$http.get(`get-job-listings/${this.companyId}`)
         .then((response)=> {
-          console.log('response', response.data)
           this.all_job_listings = response.data
         })
       this.loading = false
@@ -70,6 +69,7 @@ export default {
       await this.$http.get(`get-job-applicants/${job.uuid}`)
           .then( (response) => {
               this.job_candidates = response.data
+              this.job_candidates.sort((a,b) => (a.percentage < b.percentage) ? 1 : ((b.percentage < a.percentage) ? -1 : 0))
           }).catch( (error)=> {
               console.error(error)
           })
