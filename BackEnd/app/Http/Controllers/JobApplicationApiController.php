@@ -35,7 +35,7 @@ class JobApplicationApiController extends Controller
 
         $storage_path= Storage::disk('CV')->put('/', $file);
         $storage_name = basename($storage_path);
-        $path = 'assets/user_resumes/'.$storage_name;
+        $path = '/user_resumes/'.$storage_name;
 
         $job_applicant = new JobApplication();
         $job_applicant->user_email = $request->email;

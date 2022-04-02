@@ -37,7 +37,7 @@ return [
 
         'CV' => [
             'driver' => 'local',
-            'root' => '../../FrontEnd/src/assets/user_resumes',
+            'root' => '../../FrontEnd/public/user_resumes',
             'visibility' => 'public',
         ],
 

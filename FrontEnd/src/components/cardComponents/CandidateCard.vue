@@ -4,7 +4,7 @@
     <span class="full-name"> {{candidate.first_name}} {{candidate.last_name}}</span>
     <span class="email"> {{candidate.user_email}} </span>
     <span class="full-address"> {{candidate.percentage}}% </span>
-    <a :href='require("../../"+candidate.resume)' download> Download Resume</a>
+    <a :href="candidate.resume" :download="candidate.first_name+' '+candidate.last_name"> Download Resume</a>
   </div>
 </template>
 
