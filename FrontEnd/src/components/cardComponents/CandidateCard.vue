@@ -1,11 +1,10 @@
 <template>
-  <div class="candidate-grid">     
+  <a :href="candidate.resume" :download="candidate.first_name+' '+candidate.last_name" class="candidate-grid">     
     <img :src='require("../../"+candidate.image_path)' class="image">
     <span class="full-name"> {{candidate.first_name}} {{candidate.last_name}}</span>
     <span class="email"> {{candidate.user_email}} </span>
     <span class="full-address"> {{candidate.percentage}}% </span>
-    <a :href="candidate.resume" :download="candidate.first_name+' '+candidate.last_name"> Download Resume</a>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -30,9 +29,11 @@ export default {
     padding: 1%;
     border-radius: 15px;
     transition: 0.5s;
+    text-decoration: none;
+    color: black;
 }
 .candidate-grid:hover {
-    background-color: rgb(39, 145, 207);
+    background-color: rgb(55, 182, 255);
     transform: scale(1.02);
     cursor: pointer;
 }

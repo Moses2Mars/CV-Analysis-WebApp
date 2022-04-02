@@ -16,6 +16,7 @@
         </div>
         <div class="right-section">
           <div v-if="job_candidates.length">
+            <p class="mt-2" style="font-size: 90%"> Click a Candidate To Download Their CV!</p>
             <div v-for="candidate in job_candidates" :key="candidate.id">
               <CandidateCard :candidate="candidate"> </CandidateCard>
             </div>
