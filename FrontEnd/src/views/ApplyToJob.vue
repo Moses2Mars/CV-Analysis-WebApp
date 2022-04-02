@@ -19,8 +19,7 @@
             <form v-on:submit.prevent="applyToJob()" method="POST" enctype="multipart/form-data">
               <div class="devfile">
                   <label style="width: 100%;">
-                    <input class="input" type="file" id="file" ref="file" v-on:change="handleFileUpload($event)" accept="application/pdf,application/msword,
-                    application/vnd.openxmlformats-officedocument.wordprocessingml.document" required/>
+                    <input class="input" type="file" id="file" ref="file" v-on:change="handleFileUpload($event)" accept="application/pdf,.docx," required/>
                   </label>
               </div>
 
@@ -61,7 +60,6 @@ export default {
           const hasApplied = await this.hasApplied()
 
           if(hasApplied === true) {
-            console.log(hasApplied)
             this.loading = false
             this.$vToastify.error('You Have Already Applied For This Job')
             return this.$router.go(-1)
