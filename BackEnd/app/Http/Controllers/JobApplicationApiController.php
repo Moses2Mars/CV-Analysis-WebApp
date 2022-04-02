@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+use function PHPUnit\Framework\isNull;
+
 class JobApplicationApiController extends Controller
 {
     public function getJobApplicationsFromUUID($job_uuid) {
@@ -22,11 +24,6 @@ class JobApplicationApiController extends Controller
     }
 
     public function addJobApplicant(Request $request) {
-        $has_applied = JobApplication::where(['user_email'=> $request->email, 'job_uuid'=> $request->job_uuid])->first();
-
-        if(isset($has_applied)) 
-            abort(512, 'You Have Already Applied');
-
         //need to add 1 to joblisting table where uuid is  job_uuid
         $job_listing = JobListings::where('uuid', $request->job_uuid)->first();
         $job_listing->applicants_applied++;
@@ -35,6 +32,16 @@ class JobApplicationApiController extends Controller
         $job_applicant = new JobApplication();
         $job_applicant->user_email = $request->email;
         $job_applicant->job_uuid = $request->job_uuid;
+        $job_applicant->percentage = $request->percentage;
         $job_applicant->save();
+    }
+
+    public function hasApplied(Request $request) {
+        $has_applied = JobApplication::where(['user_email'=> $request->email, 'job_uuid'=> $request->job_uuid])->get()->count();
+        if($has_applied > 0) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }

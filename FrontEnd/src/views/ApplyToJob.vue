@@ -16,7 +16,7 @@
                 Upload your resume to get started
                 </p>
             </div>
-            <form v-on:submit.prevent="applyForJob()" method="POST" enctype="multipart/form-data">
+            <form v-on:submit.prevent="applyToJob()" method="POST" enctype="multipart/form-data">
               <div class="devfile">
                   <label style="width: 100%;">
                     <input class="input" type="file" id="file" ref="file" v-on:change="handleFileUpload($event)" accept="application/pdf,application/msword,
@@ -29,14 +29,19 @@
               </div>
 
               <div>
-                  <button class="btnLocation" v-on:submit.prevent="applyForJob()">Submit</button>
+                  <LoadingComponent v-show="loading"></LoadingComponent>
+                  <button class="btnLocation" v-on:submit.prevent="applyToJob()" v-show="!loading">Submit</button>
               </div>
             </form>
         </div>
     </div>
 </template>
 <script>
+import LoadingComponent from '@/components/LoadingComponent'
 export default {
+    components: {
+      LoadingComponent
+    },
     data() {
         return {
             loading: false,
@@ -49,28 +54,68 @@ export default {
         handleFileUpload(event) {
           this.selected_file = event.target.files[0]
         },
-        async applyForJob() {
-            this.loading = true
-            await this.getJobDescription()
-            const formData = new FormData();
-            formData.append('email', this.userEmail)
-            formData.append('job_uuid', this.job_uuid)
-            formData.append('job_description', this.job_description)
-            formData.append('file', this.selected_file);
-            await this.$http.post('http://127.0.0.1:5000/cv-form', formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-                  }
-              })
-                .then( () => {
-                    this.$vToastify.success('Applied To Job Successfully')
-                })
-                .catch( (error)=> {
-                    if(error.response.status == 512)
-                        return this.$vToastify.error('You Have Already Applied To This Job!')
-                    this.$vToastify.error('Something Went Wrong!')
-                })
+        async applyToJob() {
+          this.loading = true
+
+          // first let's check if the user has applied to this job before
+          const hasApplied = await this.hasApplied()
+
+          if(hasApplied === true) {
+            console.log(hasApplied)
             this.loading = false
+            this.$vToastify.error('You Have Already Applied For This Job')
+            return this.$router.go(-1)
+          }
+
+          //then let's get the job description to send to the flask server
+          await this.getJobDescription()
+
+          //form data required to send file over in a post request to flask server
+          const formData = new FormData();
+          formData.append('email', this.userEmail)
+          formData.append('job_uuid', this.job_uuid)
+          formData.append('job_description', this.job_description)
+          formData.append('file', this.selected_file)
+
+          //send information for flask to parse and give us back the percentage of similarity between the job description and the resume
+          await this.$http.post('http://127.0.0.1:5000/cv-form', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+              .then( (response) => {
+                let request = {
+                  email: this.userEmail,
+                  job_uuid: this.job_uuid,
+                  percentage: response.data
+                }
+                  //save values in database
+                  this.saveInDatabase(request)
+              })
+              .catch( (error)=> {
+                  this.loading = false
+                  console.error(error)
+                  this.$vToastify.error('Something Went Wrong!')
+              })
+        },
+        async hasApplied() {
+          let request = {
+            email: this.userEmail,
+            job_uuid: this.job_uuid
+          }
+          return await this.$http.post('has-applied', request)
+          .then( (response)=> { 
+              return Boolean(response.data)
+            })
+        },
+        saveInDatabase(request) {
+          //after saving the information in the database, take the user back to the previous page
+          this.$http.post('apply-for-job', request)
+            .then( ()=> {
+              this.loading = false
+              this.$vToastify.success('Applied To Job Successfully')
+              this.$router.go(-1)
+            })
+            .catch((error)=> {
+              this.loading = false
+              console.error(error)
+            })
         },
         async getJobDescription(){
           return await this.$http.get(`get-job/${this.job_uuid}`)
@@ -78,6 +123,7 @@ export default {
                   this.job_description = response.data.job_description
                 })
                 .catch( (error)=> {
+                  this.loading = false
                   console.error(error)
                 })
         }

@@ -22,14 +22,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//  COUNTRIES
 Route::get('/all-countries', [CountriesApiController::class, 'getAllCountries']);
-Route::get('/all-job-fields', [JobFieldsApiController::class, 'getAllJobFields']);
+
+// USER
+Route::post('/login', [UserController::class, 'login']);
 Route::post('/create-user/jobSeeker', [UserController::class, 'createJobSeeker']);
 Route::post('/create-user/recruiter', [UserController::class, 'createRecruiter']);
+
+// JOB FIELDS
+Route::get('/all-job-fields', [JobFieldsApiController::class, 'getAllJobFields']);
+
+// JOB LISTINGS
 Route::post('create-job-listing', [JobListingsController::class, 'createJobListing']);
 Route::get('get-job-listings/{company_id}', [JobListingsController::class, 'getJobListingsForCompany']);
 Route::get('get-running-jobs', [JobListingsController::class, 'getAllRunningJobs']);
 Route::get('get-job/{uuid}', [JobListingsController::class, 'getJobListingsFromUUID']);
+
+//JOB APPLICATIONS
 Route::get('get-job-applicants/{job_uuid}', [JobApplicationApiController::class, 'getJobApplicationsFromUUID']);
 Route::post('apply-for-job', [JobApplicationApiController::class, 'addJobApplicant']);
-Route::post('/login', [UserController::class, 'login']);
+Route::post('has-applied', [JobApplicationApiController::class, 'hasApplied']);
+
