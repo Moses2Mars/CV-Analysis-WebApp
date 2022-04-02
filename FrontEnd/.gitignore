@@ -2,6 +2,7 @@
 node_modules
 /dist
 /src/assets/user_images
+/src/assets/user_resumes
 
 # local env files
 .env.local

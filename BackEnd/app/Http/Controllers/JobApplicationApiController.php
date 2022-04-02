@@ -19,6 +19,7 @@ class JobApplicationApiController extends Controller
         foreach($job_applicants as $job_applicant) {
             $user = User::where('user_email', $job_applicant->user_email)->first();
             $user['percentage'] = $job_applicant->percentage;
+            $user['resume'] = $job_applicant->resume_path;
             array_push($array, $user);
         }
         return $array;
@@ -30,10 +31,17 @@ class JobApplicationApiController extends Controller
         $job_listing->applicants_applied++;
         $job_listing->save();
         
+        $file = $request->file('file');
+
+        $storage_path= Storage::disk('CV')->put('/', $file);
+        $storage_name = basename($storage_path);
+        $path = 'assets/user_resumes/'.$storage_name;
+
         $job_applicant = new JobApplication();
         $job_applicant->user_email = $request->email;
         $job_applicant->job_uuid = $request->job_uuid;
         $job_applicant->percentage = $request->percentage;
+        $job_applicant->resume_path = $path;
         $job_applicant->save();
     }
 

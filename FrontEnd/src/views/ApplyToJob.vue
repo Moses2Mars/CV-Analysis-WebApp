@@ -69,7 +69,7 @@ export default {
           await this.getJobDescription()
 
           //form data required to send file over in a post request to flask server
-          const formData = new FormData();
+          let formData = new FormData();
           formData.append('email', this.userEmail)
           formData.append('job_uuid', this.job_uuid)
           formData.append('job_description', this.job_description)
@@ -78,13 +78,9 @@ export default {
           //send information for flask to parse and give us back the percentage of similarity between the job description and the resume
           await this.$http.post('http://127.0.0.1:5000/cv-form', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
               .then( (response) => {
-                let request = {
-                  email: this.userEmail,
-                  job_uuid: this.job_uuid,
-                  percentage: response.data
-                }
+                  formData.append('percentage', response.data)
                   //save values in database
-                  this.saveInDatabase(request)
+                  this.saveInDatabase(formData)
               })
               .catch( (error)=> {
                   this.loading = false

@@ -37,7 +37,7 @@ return [
 
         'CV' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/CVs'),
+            'root' => '../../FrontEnd/src/assets/user_resumes',
             'visibility' => 'public',
         ],
 
@@ -46,6 +46,7 @@ return [
             'root' => '../../FrontEnd/src/assets/user_images',
             'visibility' => 'public',
         ],
+
 
         'public' => [
             'driver' => 'local',
