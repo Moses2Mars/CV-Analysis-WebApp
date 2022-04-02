@@ -3,7 +3,7 @@
     <img :src='require("../../"+candidate.image_path)' class="image">
     <span class="full-name"> {{candidate.first_name}} {{candidate.last_name}}</span>
     <span class="email"> {{candidate.user_email}} </span>
-    <span class="full-address"> {{candidate.country}}, {{candidate.address}} </span>
+    <span class="full-address"> {{candidate.percentage}}% </span>
   </div>
 </template>
 

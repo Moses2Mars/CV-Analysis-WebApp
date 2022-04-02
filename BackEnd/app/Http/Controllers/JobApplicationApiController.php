@@ -18,6 +18,7 @@ class JobApplicationApiController extends Controller
         $job_applicants = JobApplication::where('job_uuid', $job_uuid)->get();
         foreach($job_applicants as $job_applicant) {
             $user = User::where('user_email', $job_applicant->user_email)->first();
+            $user['percentage'] = $job_applicant->percentage;
             array_push($array, $user);
         }
         return $array;
