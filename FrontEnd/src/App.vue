@@ -1,52 +1,49 @@
 <template>
-  <div id="app">   
-    <nav class="bg-white navbar navbar-expand-lg navbar-expand-md border-bottom border-light" style="height: 4.5rem;">
-      <div class="container">
-        <a class="navbar-brand text-dark fw-bold fs-4" href="/"> <i class="fa fa-line-chart me-2 blue-dash"></i><span class="blue-dash">Recruit</span>World</a>
-        <p v-if="name" class="m-auto pl-4"> Welcome {{name}} </p> 
-        <div class="collapse navbar-collapse ms-5" id="navbarNav">
-            <ul class="navbar-nav ms-5">
-                <li class="nav-item mt-2 link-style" v-if="userType=='recruiter' || !isLoggedIn">
-                  <router-link to='/create-jobs' class="nav-link text-dark fw-bold">Hire Talent</router-link>
-                </li>
-                <li class="nav-item mt-2 link-style">
-                  <router-link to="/find-work" class="nav-link text-dark fw-bold">Find Work</router-link>
-                </li>
-                <li class="nav-item mt-2 link-style" v-if="userType=='recruiter'">
-                  <router-link to="/check-job-applicants" class="nav-link text-dark fw-bold">Check Job Applicants </router-link>
-                </li>
-                <li class="nav-item mt-2 link-style">
-                  <router-link to="/#help-section" class="nav-link text-dark fw-bold">Help Center</router-link>
-                </li>
-                <li class="nav-item mt-2 link-style">
-                  <router-link to="/#about-us" class="nav-link text-dark fw-bold">About Us</router-link>
-                </li>
-                <li class="nav-item" v-if="!isLoggedIn">
-                    <router-link to="/login" class="nav-link smoothScroll text-dark">
-                      <button class="btn-login fw-bold blue-dash ms-5">
-                        Login
-                      </button>
-                    </router-link>
-                </li>
-                <li class="nav-item" v-if="!isLoggedIn">
-                    <router-link to="/register" class="nav-link smoothScroll text-dark">
-                      <button class="btn-signup fw-bold me-5">
-                        Sign Up
-                      </button> 
-                    </router-link>
-                </li>
-                <li class="nav-item" v-if="isLoggedIn">
-                  <nav class="nav-link smoothScroll text-dark">
-                      <button class="btn-login fw-bold me-5" @click="logoutCurrentUser">
-                        Log Out
-                      </button> 
-                  </nav>
-                </li>
-            </ul>
-        </div>
+
+  <div id="app">
+    
+    <!-- Navbar -->
+    <nav class="flex-container top-navbar">
+
+      <a class="navbar-brand text-dark fw-bold fs-4" href="/"> 
+        <i class="fa fa-line-chart me-2 blue-dash"></i>
+        <span class="blue-dash"> Recruit </span> World
+      </a>
+
+      <div v-if="name" class="welcome"> Welcome {{name}} </div> 
+
+      <div class="flex-container router-section">
+        <router-link v-if="userType=='recruiter' || !isLoggedIn" to='/create-jobs' class="item-link">
+          Hire Talent
+        </router-link>
+        <router-link v-if="userType=='recruiter'" to="/check-job-applicants" class="item-link">
+          Check Job Applicants 
+        </router-link>
+        <router-link to="/find-work" class="item-link">Find Work</router-link>
+        <router-link to="/#help-section" class="item-link">Help Center</router-link>
+        <router-link to="/#about-us" class="item-link">About Us</router-link>
+        <router-link v-if="!isLoggedIn" to="/login" class="nav-link smoothScroll text-dark">
+          <button class="btn-login fw-bold blue-dash ms-5">
+            Login
+          </button>
+        </router-link>
+        <router-link v-if="!isLoggedIn" to="/register" class="nav-link smoothScroll text-dark">
+          <button class="btn-signup fw-bold me-5">
+            Sign Up
+          </button> 
+        </router-link>
+        <nav v-if="isLoggedIn" class="nav-link smoothScroll text-dark">
+            <button class="btn-login fw-bold me-5" @click="logoutCurrentUser">
+              Log Out
+            </button> 
+        </nav>
       </div>
     </nav>
+
+  <!-- Main View -->
   <router-view  :key='$route.fullPath' class="mb-5" />
+
+  <!-- Footer -->
   <footer class="py-5 bg-black mt-5">
       <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; AUST Senior Project 2021-2022</p></div>
   </footer>
@@ -72,10 +69,45 @@
   text-align: center;
 }
 </style>
+
 <style scoped>
-.nav-item {
-  margin: auto;
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  padding: 1em;
 }
+.top-navbar {
+  gap: 1em;
+}
+.router-section {
+  gap: 0.2em;
+}
+.welcome {
+  color: rgb(102, 102, 102);
+  text-transform: capitalize;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+.item-link {
+  text-decoration: none;
+  padding: 1em;
+  color: black;
+  font-weight: 500;
+  transition: 0.2s;
+  border-radius: 6px;
+}
+
+.item-link:hover {
+  background-color: rgb(113, 180, 255);
+}
+.router-link-active {
+  background-color: rgb(34, 137, 255);
+  color: white;
+}
+
 .btn-signup {
   color: white;
   transition: 0.2s;
@@ -94,13 +126,6 @@
   background-color:rgb(10, 142, 230);
   color: white;
   border: 1px solid rgb(41, 64, 136);
-}
-.link-style {
-  border-radius: 12px;
-}
-.link-style:hover {
-  background-color: rgb(174, 201, 226);
-  transition: 0.3s;
 }
 </style>
 <script>
