@@ -7,15 +7,15 @@
     <div v-else-if="running_jobs.length">
       <div class="main-grid">
         <div class="left-section"> 
-          <label for="search-bar" style="margin-right: 10px; margin-top: 30px;">Search For A Job</label>
-          <input type="text" id="search-bar" placeholder="Search" class="search-bar" v-model="search_string">
-          <div v-for="job in searchableJobs" :key="job.id">
-            <JobCard :job="job" :is_candidate="true" @click.native="setClickedJob(job)"></JobCard>
+          <input type="text" id="search-bar" placeholder="Search Job" class="search-bar" v-model="search_string">
+          <div class="job-card-section">
+            <JobCard v-for="job in searchableJobs" :key="job.id" :job="job" :is_candidate="true" @click.native="setClickedJob(job)" :class="job_info == job ? 'blue-bg' : 'white-bg'"></JobCard>
           </div>
         </div>
         <div class="right-section">
-          <JobInformation v-if="job_info" :job_info="job_info"></JobInformation>
-          <div v-else style="margin-top: 40px;">
+          <JobInformation v-if="job_info && show_job_details" :job_info="job_info" @showJobDetails="toggleApplyToJob"></JobInformation>
+          <ApplyToJob v-if="!show_job_details" :job_info="job_info" @showJobDetails="toggleApplyToJob" />
+          <div v-if="!job_info" style="margin-top: 40px;">
             <h2>Select A Job To See It's Details! </h2>
           </div>
         </div>
@@ -31,11 +31,14 @@
 import JobCard from '@/components/cardComponents/JobCard.vue'
 import JobInformation from '@/components/cardComponents/JobInformation.vue'
 import LoadingComponent from '@/components/LoadingComponent.vue'
+import ApplyToJob from './ApplyToJob.vue'
+
 export default {
   components: {
     JobCard,
     JobInformation,
-    LoadingComponent
+    LoadingComponent,
+    ApplyToJob,
   },
   data() {
     return {
@@ -44,6 +47,7 @@ export default {
       job_info: undefined,
       job_applicants: [],
       search_string: '',
+      show_job_details: true,
     }
   },
   methods: {
@@ -59,7 +63,11 @@ export default {
     },
     setClickedJob(job) {
       this.job_info = job
+      this.show_job_details = true
     },
+    toggleApplyToJob(bool) {
+      this.show_job_details = bool
+    }
   },
   computed: {
     searchableJobs() {
@@ -81,6 +89,26 @@ export default {
 h1 {
   margin-top: 50px;
 }
+.blue-bg {
+  background-color: rgb(72, 176, 255);
+  color: rgb(255, 255, 255);
+}
+.blue-bg:hover {
+  background-color: rgb(73, 176, 255);
+}
+.white-bg {
+  background-color: white;
+  color: black;
+}
+.white-bg:hover {
+  background-color: rgb(73, 176, 255);
+}
+.job-card-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
 .main-grid {
   margin: 20px;
   padding: 20px;
@@ -94,7 +122,9 @@ h1 {
   grid-column: 1/2;
   grid-row: 2/3;
   display: flex;
+  align-items: center;
   flex-direction: column;
+  gap: 1em;
   height: 600px;
   overflow: auto;
 }
@@ -154,8 +184,8 @@ h1 {
 	background-color: #555;
 }
 .search-bar {
-  width: 50%; 
-  margin-left: auto; 
-  margin-right: auto;
+  width: 12em;
+  font-size: 1.4em;
+  border-radius: 8px;
 }
 </style>

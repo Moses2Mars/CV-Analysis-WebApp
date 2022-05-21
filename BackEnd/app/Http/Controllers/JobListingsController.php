@@ -29,18 +29,19 @@ class JobListingsController extends Controller
 
     public function getJobListingsForCompany($company_id) {
         $jobs = JobListings::where('company_id', $company_id)->get();
+        $todays_date = date('Y-m-d');
         if(isset($jobs)){
             foreach($jobs as $job) {
                 //if the expiry date is less than today's date, it means the job has expired
-                if($job['expiry_date'] < date('Y-m-d')) {
+                if($job['expiry_date'] < $todays_date) {
                     $job['state'] = 'Complete';
                     //if the release date is greater than today's date and the expiry date is greater than today's date  
                     //it means the job list has been scheduled to release
-                } else if($job['release_date'] > date('Y-m-d') && $job['expiry_date'] > date('Y-m-d')) {
+                } else if($job['release_date'] > $todays_date && $job['expiry_date'] > $todays_date) {
                     $job['state'] = 'Scheduled';
                     //if the release date is less than today's date and the expiry date is greater than today's date  
                     //it means the job list is running
-                }else if($job['release_date'] <= date('Y-m-d') && $job['expiry_date'] >= date('Y-m-d')) {
+                }else if($job['release_date'] <= $todays_date && $job['expiry_date'] >= $todays_date) {
                     $job['state'] = 'Running';
                 }
             }

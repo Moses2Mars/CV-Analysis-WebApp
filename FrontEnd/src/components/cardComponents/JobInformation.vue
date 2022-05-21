@@ -31,7 +31,7 @@ export default {
             if(this.userPurpose == 'recruiter')
                 return this.$vToastify.error('Please Login As A Candidate First!')
                 
-            this.$router.push('/apply-to-job/'+this.job_info.uuid)
+            this.$emit('showJobDetails', false)
         }
     },
     computed: {
