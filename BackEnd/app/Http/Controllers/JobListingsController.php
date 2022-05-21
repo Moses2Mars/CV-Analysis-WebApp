@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\JobApplication;
 use App\Models\JobListings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -19,9 +20,6 @@ class JobListingsController extends Controller
         $job->expiry_date = $request->expiryDate;
         $job->field_required = $request->fieldRequired;
         $job->position_required = $request->positionRequired;
-        $job->applicants_needed = $request->applicantsNeeded;
-        $job->applicants_applied = 0;
-        $job->required_experience = $request->requiredExperience;
         $job->job_description = $request->jobDescription;
         $job->save();
         return $job;
@@ -44,6 +42,7 @@ class JobListingsController extends Controller
                 }else if($job['release_date'] <= $todays_date && $job['expiry_date'] >= $todays_date) {
                     $job['state'] = 'Running';
                 }
+                $job['applicants_applied'] = JobApplication::where('job_uuid', $job['uuid'])->get()->count();
             }
         }
         return $jobs;

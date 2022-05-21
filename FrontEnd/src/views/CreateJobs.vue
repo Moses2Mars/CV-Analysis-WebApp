@@ -27,12 +27,6 @@
                     <input type="text" name="jobPosition" class="form-control text-center" placeholder="Job Position" autocomplete="off"  v-model="jobPosition" required/>
                 </div>
                 <div class="form-group">
-                    <input type="number" name="minExperience" class="form-control text-center" min="0" max="12" step="0.5" autocomplete="off"  placeholder="Minimum Years Of Experience" v-model="minExperience" required/>
-                </div>
-                <div class="form-group">
-                    <input type="number" name="applicantsNeeded" class="form-control text-center" min="1" autocomplete="off"  placeholder="Applicants Needed" v-model="applicantsNeeded" required/>
-                </div>
-                <div class="form-group">
                     Schedule Job Listing Release Date: 
                     <input type="date" id="releaseDate" v-model='releaseDate' class="text-center form-control" required autocomplete="off" >
                 </div>
@@ -88,9 +82,7 @@ export default {
       jobField: null,
       releaseDate: undefined,
       expiryDate: undefined,
-      minExperience: null,
       jobDescription: '',
-      applicantsNeeded: null,
       loading: false,
     }
   },
@@ -116,8 +108,6 @@ export default {
         expiryDate: this.expiryDate,
         fieldRequired: this.jobField,
         positionRequired: this.jobPosition,
-        applicantsNeeded: this.applicantsNeeded,
-        requiredExperience: this.minExperience,
         jobDescription: this.jobDescription, 
       }
       
@@ -136,9 +126,7 @@ export default {
         this.jobField= null
         this.releaseDate= undefined
         this.expiryDate= undefined
-        this.minExperience= null
-        this.$refs.jobDescription. innerHTML = ''
-        this.applicantsNeeded= null
+        this.$refs.jobDescription.innerHTML = ''
     },
   },
   computed: {

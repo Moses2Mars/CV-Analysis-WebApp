@@ -5,20 +5,18 @@
       <LoadingComponent></LoadingComponent>
     </div>
     <div v-else-if="all_job_listings.length">
-      <label for="search-bar" style="margin-right: 10px; margin-top: 30px;">Search For A Job</label>
-      <input type="text" id="search-bar" placeholder="Search" v-model="search_string">
       <div class="main-grid">
-        All Results
-        <div class="left-section"> 
-          <div v-for="job in searchableJobs" :key="job.id">
-            <JobCard :job="job" @click.native="getJobCandidates(job)"></JobCard>
+        <div class="left-section">
+          <input type="text" class="search-bar" placeholder="Search Jobs" v-model="search_string">
+          <div class="job-card-section">
+            <JobCard v-for="job in searchableJobs" :key="job.id" :job="job" @click.native="getJobCandidates(job)"></JobCard>
           </div>
         </div>
         <div class="right-section">
           <div v-if="job_candidates.length">
-            <p class="mt-2" style="font-size: 90%"> Click a Candidate To Download Their CV!</p>
-            <div v-for="candidate in job_candidates" :key="candidate.id">
-              <CandidateCard :candidate="candidate"> </CandidateCard>
+            <p class="mt-2" style="font-size: 90%"> Click a Candidate To View Info About Them!</p>
+            <div>
+              <CandidateCard v-for="candidate in job_candidates" :key="candidate.id" :candidate="candidate"> </CandidateCard>
             </div>
           </div>
           <div v-else-if="other_loading">
@@ -101,6 +99,11 @@ export default {
 h1 {
   margin-top: 50px;
 }
+.search-bar {
+  width: 12em;
+  font-size: 1.4em;
+  border-radius: 8px;
+}
 .main-grid {
   margin: 20px;
   padding: 20px;
@@ -110,11 +113,20 @@ h1 {
   background-color: rgb(228, 228, 228);
   border-radius: 5px;
 }
+.job-card-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
 .left-section {
   grid-column: 1/2;
   grid-row: 2/3;
   display: flex;
+  align-items: center;
   flex-direction: column;
+  gap: 1em;
   height: 600px;
   overflow: auto;
 }

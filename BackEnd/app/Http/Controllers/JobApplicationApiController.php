@@ -25,12 +25,7 @@ class JobApplicationApiController extends Controller
         return $array;
     }
 
-    public function addJobApplicant(Request $request) {
-        //need to add 1 to joblisting table where uuid is  job_uuid
-        $job_listing = JobListings::where('uuid', $request->job_uuid)->first();
-        $job_listing->applicants_applied++;
-        $job_listing->save();
-        
+    public function addJobApplicant(Request $request) {        
         $file = $request->file('file');
 
         $storage_path= Storage::disk('CV')->put('/', $file);
