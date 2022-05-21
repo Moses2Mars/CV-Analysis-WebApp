@@ -4,12 +4,6 @@
     <div class="form-container sign-in-container">
       <form role="form" @submit.prevent="loginUser">
         <h1>Sign in</h1>
-        <div class="social-container">
-          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a><br> 
-          <span>via linkedIn </span> 
-        </div>
-
-        <span>or use your account</span>
 
         <input type="email" placeholder="Email" v-model="user.email" required />
         <input type="password" placeholder="Password" v-model="user.password" required />
