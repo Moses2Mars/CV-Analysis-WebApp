@@ -1,11 +1,14 @@
 <template>
     <div class="job-info-grid">
         <div class="header-section">
-            <img :src="require('../../'+job_info.company_logo)" class="company-image">
-            <span class="position"> {{job_info.position_required}} </span>
-            <span class="field"> {{job_info.field_required}} </span>
-            <span class="company-name"> {{job_info.company_name}}</span>
-            <span class="address"> {{job_info.address}}</span>
+            <div class="left-header">
+                <img :src="require('../../'+job_info.company_logo)" class="company-image">
+                <div class="job-info-section">
+                    <span class="job-position"> {{job_info.position_required}} </span>
+                    <span class="field"> {{job_info.field_required}} </span>
+                    <span class="address"> {{job_info.company_name}} - {{job_info.address}}</span>
+                </div>
+            </div>
             <button class="btn-post fw-bold apply-btn" @click="applyToJob"> Apply For This Job </button>          
         </div>
         <div class="body">
@@ -49,58 +52,45 @@ export default {
 .job-info-grid {
     display: flex;
     flex-direction: column;
-    margin-top: 40px;
+    justify-items: center;
+    align-items: center;
+    padding: 1.5em;
+    gap: 1.5em;
 }
 .header-section {
-    margin-left: 3%;
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    justify-items: left;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 2em;
+}
+.job-position {
+    font-size: 1.3em;
+    font-weight: 600;
+}
+.left-header {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    text-transform: capitalize;
+}
+.job-info-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 }
 .company-image {
     object-fit: contain;
-    grid-column: 1/2;
-    grid-row: 1/5;
-    width: 100%; 
+    width: 8em; 
     height: 100%;
     aspect-ratio: 1/1;
-    justify-self: center;
-    align-self: center;
-    border-radius: 20%;
 }
-.position {
-    grid-column: 2/3;
-    grid-row: 1/2;
-    margin-left: 40px;
-}
-.field {
-    grid-column: 2/3;
-    grid-row: 2/3;
-    margin-left: 40px;
-}
-.company-name {
-    grid-column: 2/3;
-    grid-row: 3/4;
-    margin-left: 40px;   
-}
-.address {
-    grid-column: 2/3;
-    grid-row: 4/5;
-    margin-left: 40px;
-}
-.apply-btn {
-    grid-column: 3/4;
-    grid-row: 2/4;
-    margin-right: 40px;
-}
+
 .body {
-    display: flex;
-    background: rgb(250, 250, 250);
-    margin-top: 40px;
-    padding-left: 40px;
     height: 100%;
     text-align: left;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 </style>

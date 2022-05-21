@@ -54,6 +54,7 @@ export default {
     gap: 1em;
     align-items: center;
     justify-content: center;
+    text-transform: capitalize;
 }
 
 .static-text {
