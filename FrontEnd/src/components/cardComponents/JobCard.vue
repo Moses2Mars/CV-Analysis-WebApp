@@ -1,6 +1,6 @@
 <template>
     <div class="card-outline" :class="job.state">
-        <span class="job-header">{{job.position_required}} - {{job.company_name}}</span>
+        <span class="job-header">{{job.position_required}} <span v-if="is_candidate"> - {{job.company_name}} </span></span>
         <div class="job-field"> 
             <span class="static-text"> Field: </span> {{job.field_required}}
         </div>
