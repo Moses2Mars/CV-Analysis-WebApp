@@ -20,7 +20,6 @@
           Check Job Applicants 
         </router-link>
         <router-link to="/find-work" class="item-link">Find Work</router-link>
-        <router-link to="/#help-section" class="item-link">Help Center</router-link>
         <router-link to="/#about-us" class="item-link">About Us</router-link>
         <router-link v-if="!isLoggedIn" to="/login" class="nav-link smoothScroll text-dark">
           <button class="btn-login fw-bold blue-dash ms-5">
