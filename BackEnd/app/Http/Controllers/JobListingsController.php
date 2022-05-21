@@ -55,6 +55,7 @@ class JobListingsController extends Controller
             $company = Company::where('company_name', $job_listing->company_name)->first();
             $job_listing['address'] = $company->country . ', '.$company->address;
             $job_listing['company_logo'] = $company->image_path;
+            $job_listing['job_description'] = str_replace("\n", "<br>", $job_listing['job_description']);
         }
         return $job_listings;
     }

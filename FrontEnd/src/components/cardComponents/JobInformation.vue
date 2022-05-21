@@ -11,7 +11,7 @@
             </div>
             <button class="btn-post fw-bold apply-btn" @click="applyToJob"> Apply For This Job </button>          
         </div>
-        <div class="body">
+        <div class="body" v-html="job_info.job_description">
             {{job_info.job_description}}
         </div>
     </div>
