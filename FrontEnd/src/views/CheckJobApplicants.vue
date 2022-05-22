@@ -9,20 +9,18 @@
         <div class="left-section">
           <input type="text" class="search-bar" placeholder="Search Jobs" v-model="search_string">
           <div class="job-card-section">
-            <JobCard v-for="job in searchableJobs" :key="job.id" :job="job" @click.native="getJobCandidates(job)"></JobCard>
+            <JobCard v-for="job in searchableJobs" :key="job.id" :job="job" @click.native="getJobCandidates(job)" :class="selected_job == job ? 'blue-bg' : ''"></JobCard>
           </div>
         </div>
         <div class="right-section">
-          <div v-if="job_candidates.length">
-            <p class="mt-2" style="font-size: 90%"> Click a Candidate To View Info About Them!</p>
-            <div>
-              <CandidateCard v-for="candidate in job_candidates" :key="candidate.id" :candidate="candidate"> </CandidateCard>
-            </div>
+          <div v-if="!show_candidate_info && job_candidates.length && !job_Candidate_loading" class="all-candidates">
+            <CandidateCard v-for="candidate in job_candidates" :key="candidate.id" :candidate="candidate" @click.native="viewCandidateInfo(candidate)" />
           </div>
-          <div v-else-if="other_loading">
+          <CandidateInfo :candidate="this.selected_candidate" @viewAllCandidates="viewAllCandidates" v-else-if="show_candidate_info" />
+          <div v-if="job_Candidate_loading">
             <LoadingComponent></LoadingComponent>         
           </div>
-          <div v-else>
+          <div v-if="!job_candidates.length && !job_Candidate_loading">
             No Candidates Have Applied So Far
           </div>
         </div>
@@ -38,19 +36,24 @@
 import JobCard from '@/components/cardComponents/JobCard.vue'
 import LoadingComponent from '@/components/LoadingComponent.vue'
 import CandidateCard from '@/components/cardComponents/CandidateCard.vue'
+import CandidateInfo from '../components/CandidateInfo.vue'
 export default {
   components: {
     JobCard,
     LoadingComponent,
     CandidateCard,
+    CandidateInfo,
   },
   data () {
     return {
       all_job_listings: [],
       job_candidates: [],
       loading: false,
-      other_loading: false,
+      job_Candidate_loading: false,
       search_string: '',
+      selected_candidate: [],
+      selected_job: [],
+      show_candidate_info: false,
     }
   },
   methods: {
@@ -63,7 +66,9 @@ export default {
       this.loading = false
     },
     async getJobCandidates(job){
-      this.other_loading = true
+      this.viewAllCandidates()
+      this.job_Candidate_loading = true
+      this.selected_job = job
       //get info from job_applications database
       await this.$http.get(`get-job-applicants/${job.uuid}`)
           .then( (response) => {
@@ -72,7 +77,15 @@ export default {
           }).catch( (error)=> {
               console.error(error)
           })
-      this.other_loading = false
+      this.job_Candidate_loading = false
+    },
+    viewCandidateInfo(candidate) {
+      this.show_candidate_info = true
+      this.selected_candidate = candidate
+    },
+    viewAllCandidates() {
+      this.show_candidate_info = false
+      this.selected_candidate = []
     }
   },
   computed: {
@@ -98,6 +111,20 @@ export default {
 }
 h1 {
   margin-top: 50px;
+}
+.all-candidates {
+  display: grid;
+  grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );
+  grid-template-rows: repeat( auto-fit, minmax(100px, 1fr) );
+  gap: 1em;
+  padding: 2em;
+}
+.blue-bg {
+  background-color: rgb(72, 176, 255);
+  color: rgb(255, 255, 255);
+}
+.blue-bg:hover {
+  background-color: rgb(73, 176, 255);
 }
 .search-bar {
   width: 12em;

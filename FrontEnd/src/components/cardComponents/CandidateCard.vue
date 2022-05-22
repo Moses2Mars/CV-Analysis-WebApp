@@ -1,10 +1,9 @@
 <template>
-  <a :href="candidate.resume" :download="candidate.first_name+' '+candidate.last_name" class="candidate-grid">     
-    <img :src='require("../../"+candidate.image_path)' class="image">
-    <span class="full-name"> {{candidate.first_name}} {{candidate.last_name}}</span>
-    <span class="email"> {{candidate.user_email}} </span>
-    <span class="full-address"> {{candidate.percentage}}% </span>
-  </a>
+    <div  class="candidate-flex">     
+        <img :src='require("../../"+candidate.image_path)' class="image">
+        <span class="full-name"> {{candidate.first_name}} {{candidate.last_name}}</span>
+        <div class="potential"> {{candidate.percentage}}% </div>
+    </div>
 </template>
 
 <script>
@@ -19,28 +18,25 @@ export default {
 </script>
 
 <style scoped>
-.candidate-grid {
-    margin: 2%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr 2fr;
+.candidate-flex {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-items: center;
+    justify-content: center;
     background-color: rgb(82, 188, 250);
-    padding: 1%;
+    padding: 1em;
     border-radius: 15px;
     transition: 0.5s;
     text-decoration: none;
     color: black;
 }
-.candidate-grid:hover {
+.candidate-flex:hover {
     background-color: rgb(55, 182, 255);
     transform: scale(1.02);
     cursor: pointer;
 }
 .image {
     object-fit: cover;
-    grid-column: 1/2;
-    grid-row: 1/2;
     width: 100px; 
     height: 100px;
     aspect-ratio: 1/1;
@@ -48,19 +44,10 @@ export default {
     border-radius: 20%;
 }
 .full-name {
-    grid-row: 1/2;
-    grid-column: 2/3;
     font-size: 130%;
     font-weight: 600;
 }
-.email {
-    grid-row: 1/2;
-    grid-column: 3/4;
-    font-size: 120%;
-}
-.full-address {
-    grid-row: 1/2;
-    grid-column: 4/5;
+.potential {
     font-size: 110%;
 }
 </style>

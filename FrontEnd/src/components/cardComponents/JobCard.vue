@@ -39,9 +39,6 @@ export default {
             type: Boolean,
         }
     },
-    mounted() {
-        console.log('job', this.job)
-    }
 }
 </script>
 

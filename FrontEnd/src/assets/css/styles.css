@@ -11355,6 +11355,22 @@ html {
   color: #2196F3;
   border: 1px solid rgb(41, 64, 136);
 }
+.btn-delete {
+  display:block;
+  border-radius: 28px;
+  height: 50px;
+  width: 195.67px;
+  border: none;
+  background-color: red;
+  color: white;
+  transition: 0.3s;
+}
+
+.btn-delete:hover {
+  background-color: white;
+  color: red;
+  border: 1px solid rgb(41, 64, 136);
+}
 
 .btn-find {
   display:block;
