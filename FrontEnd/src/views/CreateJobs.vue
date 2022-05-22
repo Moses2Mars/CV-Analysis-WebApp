@@ -8,15 +8,14 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    Company Name: 
                     <input type="text" name="companyName" class="form-control text-center" placeholder="Company Name" v-model="companyName" :disabled="isLoggedIn"/>
                 </div>
                 <div class="form-group">
                     <input type="email" name="contactEmail" class="form-control text-center" placeholder="Company Contact / HR Email" v-model="contactEmail" required />
                 </div>               
                 <div class="form-group">
-                  Job Field:
-                  <select class="form-select" name='jobField' id='jobField' @change='setJobField($event)' required> &ShortDownArrow;
+                  <b style="color:black;">Job Field: </b>
+                  <select class="form-select" name='jobField' id='jobField' @change='setJobField($event)' required :key="dropdown_refresh"> &ShortDownArrow;
                     <option disabled selected value class="text-center"> -- select an option -- </option>
                     <option v-for="job_field in all_job_fields" :key="job_field.id" :value='job_field.field' class="text-center">
                       {{job_field.field}}
@@ -27,28 +26,17 @@
                     <input type="text" name="jobPosition" class="form-control text-center" placeholder="Job Position" autocomplete="off"  v-model="jobPosition" required/>
                 </div>
                 <div class="form-group">
-                    Schedule Job Listing Release Date: 
+                    <b style="color:black;">Schedule Job Listing Release Date: </b>
                     <input type="date" id="releaseDate" v-model='releaseDate' class="text-center form-control" required autocomplete="off" >
                 </div>
                 <div class="form-group">
-                  Job Listing Expiry Date: 
+                    <b style="color:black;">Job Listing Expiry Date:</b> 
                     <input type="date" id="expiryDate" :min='releaseDate' v-model='expiryDate' class="text-center form-control" required autocomplete="off" >
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <div 
-                    ref="jobDescription"
-                    name="jobDescription" 
-                    contenteditable="true"
-                    class="form-control text-area" 
-                    minlength="50" 
-                    placeholder="Job Description" 
-                    required
-                    @input="onInput"
-                    autocomplete="off">
-
-                    </div>
+                    <textarea v-model="jobDescription" class="form-control text-area" minlength="50" placeholder="Job Description" required autocomplete="off"></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -65,9 +53,9 @@
   text-align: left;
   overflow: auto;
   width: 100%; 
-  height: 41em;
+  height: 30em;
+  max-height: 31em;
   min-height: 17rem; 
-  max-height: 41em;
 }
 </style>
 
@@ -84,12 +72,10 @@ export default {
       expiryDate: undefined,
       jobDescription: '',
       loading: false,
+      dropdown_refresh: 0,
     }
   },
   methods: {
-    onInput(e) {
-      this.jobDescription= e.target.innerText;
-    },
     setAllJobFields(){
       this.all_job_fields = this.$store.getters['getAllJobFields']
     },
@@ -126,7 +112,8 @@ export default {
         this.jobField= null
         this.releaseDate= undefined
         this.expiryDate= undefined
-        this.$refs.jobDescription.innerHTML = ''
+        this.jobDescription = ''
+        this.dropdown_refresh = this.dropdown_refresh++
     },
   },
   computed: {

@@ -21,18 +21,18 @@
         </router-link>
         <router-link to="/find-work" class="item-link">Find Work</router-link>
         <router-link to="/#about-us" class="item-link">About Us</router-link>
-        <router-link v-if="!isLoggedIn" to="/login" class="nav-link smoothScroll text-dark">
-          <button class="btn-login fw-bold blue-dash ms-5">
+        <nav v-if="!isLoggedIn">
+          <button class="btn-login fw-bold blue-dash mx-4" @click="$router.push('/login')">
             Login
           </button>
-        </router-link>
-        <router-link v-if="!isLoggedIn" to="/register" class="nav-link smoothScroll text-dark">
-          <button class="btn-signup fw-bold me-5">
+        </nav>
+        <nav v-if="!isLoggedIn">
+          <button class="btn-signup fw-bold" @click="$router.push('/register')">
             Sign Up
           </button> 
-        </router-link>
-        <nav v-if="isLoggedIn" class="nav-link smoothScroll text-dark">
-            <button class="btn-login fw-bold me-5" @click="logoutCurrentUser">
+        </nav>
+        <nav v-if="isLoggedIn">
+            <button class="btn-login fw-bold mx-4" @click="logoutCurrentUser">
               Log Out
             </button> 
         </nav>
@@ -96,7 +96,7 @@
   color: black;
   font-weight: 500;
   transition: 0.2s;
-  border-radius: 6px;
+  border-radius: 18px;
 }
 
 .item-link:hover {

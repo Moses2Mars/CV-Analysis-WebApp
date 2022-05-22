@@ -3,7 +3,7 @@
 
     <div class="form-container sign-in-container">
       <form role="form" @submit.prevent="loginUser">
-        <h1>Sign in</h1>
+        <h1 style="margin-bottom: 0.7em;">Sign in</h1>
 
         <input type="email" placeholder="Email" v-model="user.email" required />
         <input type="password" placeholder="Password" v-model="user.password" required />

@@ -11391,8 +11391,8 @@ html {
 .btn-login{
   display:block;
   border-radius: 28px;
-  height: 32px;
-  width: 79px;
+  height: 45px;
+  width: 90px;
   border: 1px solid #2196F3;
   background-color: white;
   color: #2196F3;
@@ -11401,8 +11401,8 @@ html {
 .btn-signup {
   display:block;
   border-radius: 28px;
-  height: 32px;
-  width: 79px;
+  height: 45px;
+  width: 90px;
   border: none;
   background-color: #2196F3;
   color: white;
