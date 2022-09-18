@@ -78,7 +78,7 @@ export default {
 }
 
 .medium {
-    color: yellow;
+    color: rgb(0, 205, 14);
     font-weight: 600;
 }
 .medium::after {
@@ -86,7 +86,7 @@ export default {
 }
 
 .high {
-    color: green;
+    color: rgb(5, 208, 5);
     font-weight: 600;
 }
 .high::after {
